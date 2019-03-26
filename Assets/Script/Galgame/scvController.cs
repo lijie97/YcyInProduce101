@@ -23,13 +23,15 @@ public class csvController
         return csv;
     }
 
-    public void loadFile(string path, string fileName)
+    public void loadFile()
     {
+        string file_url = System.IO.Path.Combine(Application.streamingAssetsPath, "novel.csv");
         arrayData.Clear();
         StreamReader sr = null;
         try
         {
-            string file_url = path + "/" + fileName;    //根据路径打开文件
+            
+            //file_url = path + "/" + fileName;    //根据路径打开文件
             sr = File.OpenText(file_url);
             Debug.Log("File Find in " + file_url);
         }
@@ -46,6 +48,9 @@ public class csvController
         }
         sr.Close();
         sr.Dispose();
+    }
+    public int getSizeY() {
+        return arrayData.Count;
     }
 
     public string getString(int row, int col)

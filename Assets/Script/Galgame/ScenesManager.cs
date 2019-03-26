@@ -5,41 +5,63 @@ using UnityEngine.UI;
 using System.IO;
 
 public class ScenesManager : MonoBehaviour {
-    int index, afs;
-    int maxAFS = 300;
-    public Text textObj;
+    int index, afs,stringlen,lenPrinted;
+    int maxAFS = 260;
+    int maxScenes;
     public GameObject bgmObj;
-    public GameObject btnObj;
-    public Image backgroundObj;
-    public Image peopleObj;
+    private string Res_BGPath = "Background/";
     string[] fileData;
-    private string newText;
+    GameObject bgObj;
+    private string nextString;
+    private Text textOnBoard;
+    private string nextPeoplePicName;
+    private string nextBgPicName;
+    private Sprite nextBgSprite;
     // Use this for initialization
     void Start () {
         index = 0;
-        Debug.Log("start");
-        //GameObject btnObj = GameObject.Find("Canvas/Button");
-        Button btn = (Button)btnObj.GetComponent<Button>();
+        //Debug.Log("start");
+        GameObject bgObj = GameObject.Find("Canvas/Background");
+        GameObject btnObj = GameObject.Find("Canvas/Button");
+        GameObject textObj = GameObject.Find("Canvas/Diag-Box/Text");
+        GameObject peopleObj = GameObject.Find("Canvas/People");
+        Button btn = btnObj.GetComponent<Button>();
         btn.onClick.AddListener(onClick);
+        textOnBoard = textObj.GetComponent<Text>();
         readCSV();
+        maxScenes = csvController.GetInstance().getSizeY();
+        afs = maxAFS;
+        nextString = csvController.GetInstance().getString(index, 3);
+        stringlen = nextString.Length;
+        textOnBoard.text = "";
+        lenPrinted = 0;
     }
     void readCSV() {
-        string filePath = Application.streamingAssetsPath;
-        Debug.Log(filePath);
-        csvController.GetInstance().loadFile(filePath, "novel.csv ");
-        fileData = File.ReadAllLines(filePath);
-     
+        csvController.GetInstance().loadFile();
     }
+
     void onClick() {
-        //Debug.Log("On click");
-        index += 1;
         if (afs > 0) afs = 0;
-        else afs = maxAFS;
-        newText = csvController.GetInstance().getString(index, 2);
-        Debug.Log(newText);
-    }
-	void Update () {
+        else{
+            index += 1;
+            afs = maxAFS;
+            nextString = csvController.GetInstance().getString(index, 3);
+            nextPeoplePicName = csvController.GetInstance().getString(index, 2);
+            nextBgPicName = csvController.GetInstance().getString(index, 2);
+            stringlen = nextString.Length;
+            lenPrinted = 0;
+            nextBgSprite = Resources.Load(Res_BGPath + nextBgPicName, typeof(Sprite)) as Sprite;
+
+        }
         
+    }
+
+    void Update() { 
         if (afs > 0) afs--;
-	}
+        
+        if (maxAFS - afs > lenPrinted * (maxAFS/stringlen)) {
+            lenPrinted++;
+            if (lenPrinted<=stringlen) textOnBoard.text = nextString.Substring(0,lenPrinted);
+        }
+    }
 }
