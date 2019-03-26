@@ -16,7 +16,9 @@ public class ScenesManager : MonoBehaviour {
     private Text textOnBoard;
     private string nextPeoplePicName;
     private string nextBgPicName;
-    private Sprite nextBgSprite;
+    private Image nextBgImg,nextBgImgLocader;
+    private int alphaTunel;
+    GameObject nextBgObj;
     // Use this for initialization
     void Start () {
         index = 0;
@@ -24,8 +26,10 @@ public class ScenesManager : MonoBehaviour {
         GameObject bgObj = GameObject.Find("Canvas/Background");
         GameObject btnObj = GameObject.Find("Canvas/Button");
         GameObject textObj = GameObject.Find("Canvas/Diag-Box/Text");
-        GameObject peopleObj = GameObject.Find("Canvas/People");
+        //GameObject peopleObj = GameObject.Find("Canvas/People");
+        nextBgObj = GameObject.Find("Canvas/NextBackground");
         Button btn = btnObj.GetComponent<Button>();
+        nextBgImg = nextBgObj.GetComponent<Image>();
         btn.onClick.AddListener(onClick);
         textOnBoard = textObj.GetComponent<Text>();
         readCSV();
@@ -50,8 +54,10 @@ public class ScenesManager : MonoBehaviour {
             nextBgPicName = csvController.GetInstance().getString(index, 2);
             stringlen = nextString.Length;
             lenPrinted = 0;
-            nextBgSprite = Resources.Load(Res_BGPath + nextBgPicName, typeof(Sprite)) as Sprite;
+            nextBgImgLocader = Resources.Load(Res_BGPath + nextBgPicName, typeof(Image)) as Image;
+            nextBgObj.GetComponent<Image>() = nextBgImgLocader;
 
+            alphaTunel = 0;
         }
         
     }
@@ -59,9 +65,13 @@ public class ScenesManager : MonoBehaviour {
     void Update() { 
         if (afs > 0) afs--;
         
-        if (maxAFS - afs > lenPrinted * (maxAFS/stringlen)) {
+        if (afs % 5 == 0) {
             lenPrinted++;
             if (lenPrinted<=stringlen) textOnBoard.text = nextString.Substring(0,lenPrinted);
         }
+        alphaTunel += 5;
+        if (alphaTunel <= 255) nextBgImg.color = new Color(255, 255, 255, alphaTunel);
+        nextBgObj.GetComponent<Image>().color = new Color(255, 255, 255, alphaTunel);
+
     }
 }
