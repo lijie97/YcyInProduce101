@@ -6,7 +6,7 @@ using System.IO;
 
 public class ScenesManager : MonoBehaviour {
     int index, afs,stringlen,lenPrinted;
-    int maxAFS = 260;
+    int maxAFS = 220;
     int maxScenes;
     public GameObject bgmObj;
     private string Res_BGPath = "Background/";
