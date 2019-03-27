@@ -123,8 +123,9 @@ GameObject:
   - component: {fileID: 706157632}
   - component: {fileID: 706157634}
   - component: {fileID: 706157633}
+  - component: {fileID: 706157635}
   m_Layer: 5
-  m_Name: Diag-Box
+  m_Name: DiagBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.86666673, g: 0.6156863, b: 0.7176471, a: 1}
+  m_Color: {r: 0.8666667, g: 0.6156863, b: 0.7176471, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -183,6 +184,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 706157631}
+--- !u!114 &706157635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 706157631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d7bd61279dd004bab1f93e9568eca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearing: 0
+  disappearing: 0
 --- !u!1 &754333551
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,6 +207,7 @@ GameObject:
   - component: {fileID: 754333552}
   - component: {fileID: 754333554}
   - component: {fileID: 754333553}
+  - component: {fileID: 754333555}
   m_Layer: 5
   m_Name: NameCard
   m_TagString: Untagged
@@ -231,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.9411765}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -252,6 +267,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 754333551}
+--- !u!114 &754333555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 754333551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d7bd61279dd004bab1f93e9568eca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearing: 0
+  disappearing: 0
 --- !u!1 &796356948
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,8 +716,9 @@ GameObject:
   - component: {fileID: 1423107102}
   - component: {fileID: 1423107104}
   - component: {fileID: 1423107103}
+  - component: {fileID: 1423107105}
   m_Layer: 5
-  m_Name: NextPeople
+  m_Name: NowPerson
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -725,7 +754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -746,6 +775,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1423107101}
+--- !u!114 &1423107105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1423107101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d7bd61279dd004bab1f93e9568eca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearing: 0
+  disappearing: 0
 --- !u!1 &1533339051
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,8 +798,9 @@ GameObject:
   - component: {fileID: 1533339052}
   - component: {fileID: 1533339054}
   - component: {fileID: 1533339053}
+  - component: {fileID: 1533339055}
   m_Layer: 5
-  m_Name: NextBackground
+  m_Name: NowBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -814,6 +857,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1533339051}
+--- !u!114 &1533339055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1533339051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d7bd61279dd004bab1f93e9568eca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearing: 0
+  disappearing: 0
 --- !u!1 &1658840392
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,7 +937,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4E4C\u9F9F\u4E4C\u9F9F\u5FEB\u70B9\u722C"
+  m_Text: 
 --- !u!222 &1658840395
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -898,8 +954,9 @@ GameObject:
   - component: {fileID: 1812219747}
   - component: {fileID: 1812219749}
   - component: {fileID: 1812219748}
+  - component: {fileID: 1812219750}
   m_Layer: 5
-  m_Name: People
+  m_Name: Person
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -935,7 +992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -956,6 +1013,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1812219746}
+--- !u!114 &1812219750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1812219746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d7bd61279dd004bab1f93e9568eca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearing: 0
+  disappearing: 0
 --- !u!1 &1841194547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,7 +1093,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6768\u8D85\u8D8A"
+  m_Text: 
 --- !u!222 &1841194550
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1040,6 +1110,7 @@ GameObject:
   - component: {fileID: 1961193311}
   - component: {fileID: 1961193313}
   - component: {fileID: 1961193312}
+  - component: {fileID: 1961193314}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -1098,6 +1169,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1961193310}
+--- !u!114 &1961193314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1961193310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d7bd61279dd004bab1f93e9568eca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearing: 0
+  disappearing: 0
 --- !u!1 &1976863316
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,10 +55,14 @@ public class csvController
 
     public string getString(int row, int col)
     {
+        //Debug.Log(arrayData[row][col]);
         return arrayData[row][col];
     }
     public int getInt(int row, int col)
     {
-        return int.Parse(arrayData[row][col]);
+        //Debug.Log(arrayData[row][col]);
+        if (arrayData[row][col].Length != 0)
+            return int.Parse(arrayData[row][col]);
+        else return 0;
     }
 }

@@ -4,95 +4,140 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 
-public class ScenesManager : MonoBehaviour {
-    int index, afs,stringlen,lenPrinted, maxScenes;
+public class ScenesManager : MonoBehaviour
+{
+    int index, afs, stringlen, lenPrinted, maxScenes;
     int maxAFS = 220;
     public GameObject bgmObj;
     //private string Res_BGPath = "Background/";
-    string[] fileData;
-    GameObject bgObj;
-    private string nextString, nextBgPicName, nextPsPicName;
-    private Text textOnBoard, textPeopleName;
-    private Image nextBgImg,nextBgImgLocader,bgImg,psImg,nextPsImg;
-    private bool visible;
-    GameObject nextBgObj, nextPsObj, PsObj;
+    private string nowString, nowBgPicName, nowPsPicName;
+    private Text textOnBoard, textPsName;
+    private Image nowBgImg, nowBgImgLocader, nowPsImg;
+
+    private bool visible,acc;
+    GameObject nowBgObj, nowPsObj;
     // Use this for initialization
-    void Start () {
+    /*IEnumerator loadPsImg()
+    {
+        AsyncOperation loadRequest = Resources.LoadAsync("img_girls/" + nowPsPicName, typeof(Sprite));
+        yield return loadRequest;
+        nowPsImg.sprite = loadRequest.bytes as Sprite;
+    }*/
+
+    //StartCoroutine(loadBackground());
+    void Start()
+    {
         index = 1;
         //Debug.Log("start");
-        PsObj = GameObject.Find("Canvas/Person");
-        GameObject bgObj = GameObject.Find("Canvas/Background");
-        //GameObject btnObj = GameObject.Find("Canvas/Button");
-        //GameObject textObj = GameObject.Find("Canvas/Diag-Box/Text");
-        //GameObject nextPsObj = GameObject.Find("Canvas/NestPerson");
-        //GameObject textPeopleNameObj = GameObject.Find("Canvas/Diag-Box/NameCard/Text");
-        //GameObject peopleObj = GameObject.Find("Canvas/People");
-        nextBgObj = GameObject.Find("Canvas/NextBackground");
-        nextPsObj = GameObject.Find("Canvas/NextPerson");
-        nextPsImg = GameObject.Find("Canvas/NestPerson").GetComponent<Image>();
+       
+        nowBgObj = GameObject.Find("Canvas/NowBackground");
+        nowPsObj = GameObject.Find("Canvas/NowPerson");
+        
+        nowPsImg = nowPsObj.GetComponent<Image>();
+        nowBgImg = nowBgObj.GetComponent<Image>();
+        
         Button btn = GameObject.Find("Canvas/Button").GetComponent<Button>();
-        textPeopleName = GameObject.Find("Canvas/Diag-Box/NameCard/Text").GetComponent<Text>();
-        nextBgImg = nextBgObj.GetComponent<Image>();
-        bgImg = bgObj.GetComponent<Image>();
+        textPsName = GameObject.Find("Canvas/DiagBox/NameCard/Text").GetComponent<Text>();
         btn.onClick.AddListener(onClick);
-        textOnBoard = GameObject.Find("Canvas/Diag-Box/Text").GetComponent<Text>();
+        textOnBoard = GameObject.Find("Canvas/DiagBox/Text").GetComponent<Text>();
         csvController.GetInstance().loadFile(); //readCSV();
         //########从csv读取第一帧的信息########
         maxScenes = csvController.GetInstance().getSizeY();
-        //afs = maxAFS;
-        nextString = csvController.GetInstance().getString(index, 3);
-        //Debug.Log();
-        textPeopleName.text = csvController.GetInstance().getString(index, 2);
-        nextPsPicName = csvController.GetInstance().getString(index, 1);
-        nextBgPicName = csvController.GetInstance().getString(index, 4);
-        //Debug.Log(nextBgPicName);
-        nextBgImg.sprite = Resources.Load("Background/" + nextBgPicName, typeof(Sprite)) as Sprite;
-        nextPsImg.sprite = Resources.Load("img_girls/" + nextPsPicName, typeof(Sprite)) as Sprite;
-        stringlen = nextString.Length;
-        textOnBoard.text = "";
-        lenPrinted = 0;
-
+        getPsName();
+        getPic();
+        getText();
+        getVisibility();
+        afs = 0;
+        nowBgObj.GetComponent<Appear>().appear();
+        nowPsObj.GetComponent<Appear>().appear();
     }
-
-    void onClick() {
-        if (afs > 0) afs = 0;
-        else{
-            index = csvController.GetInstance().getInt(index, 6);
-            afs = maxAFS;
-            nextString = csvController.GetInstance().getString(index, 3);
-            nextPsPicName = csvController.GetInstance().getString(index, 1);
-            stringlen = nextString.Length;
-            lenPrinted = 0;
-            textPeopleName.text = csvController.GetInstance().getString(index, 2);
-            if (nextBgPicName!=csvController.GetInstance().getString(index, 4)) { 
-                nextBgPicName = csvController.GetInstance().getString(index, 4);
-                nextBgImg.sprite = Resources.Load("Background/" + nextBgPicName, typeof(Sprite)) as Sprite;
-                nextPsImg.sprite = Resources.Load("img_girls/" + nextPsPicName, typeof(Sprite)) as Sprite;
-                nextBgObj.GetComponent<Appear>().appearing = true;
-                nextPsObj.GetComponent<Appear>().appearing = true;
-                nextPsObj.GetComponent<Appear>().disappearing = true;
-                //BgObj.GetComponent<Appear>().appearing = false;
-
-            }
-
-        }
-        
-    }
-
-    void Update() {
-        if (afs == 0)
+    void getVisibility()
+    {
+        visible = csvController.GetInstance().getInt(index, 5)==1;
+        //Debug.Log(111111111);
+        if (!visible)
         {
-            bgImg = nextBgImg;
-            psImg = nextPsImg;
-            PsObj.GetComponent<Appear>().fillAlphaTunel();
+            GameObject.Find("Canvas/DiagBox/NameCard").GetComponent<Appear>().disappear();
+            GameObject.Find("Canvas/DiagBox").GetComponent<Appear>().disappear();
+            //GameObject.Find("Canvas/Diag-Box").GetComponent<Appear>().disappear();
+        }
+        else {
+            GameObject.Find("Canvas/DiagBox/NameCard").GetComponent<Appear>().appear();
+            GameObject.Find("Canvas/DiagBox").GetComponent<Appear>().appear();
+        }
+    }
+    void getPsName()
+    {
+        textPsName.text = csvController.GetInstance().getString(index, 2);
+    }
+
+    void getPic()
+    {
+       
+        if (nowPsPicName != csvController.GetInstance().getString(index, 1)) {  
+            nowPsPicName = csvController.GetInstance().getString(index, 1);
+            if (nowPsPicName.Length != 0)
+            {
+                
+                nowPsImg.sprite = Resources.Load("img_girls/" + nowPsPicName, typeof(Sprite)) as Sprite;
+                nowPsObj.GetComponent<Appear>().ResetAlphaTunel();
+            }
+        else {
+                nowPsImg.sprite = Resources.Load("透明", typeof(Sprite)) as Sprite;
+                
+            }
+        }
+        if (nowBgPicName != csvController.GetInstance().getString(index, 4))
+        {
+            nowBgPicName = csvController.GetInstance().getString(index, 4);
+            if (nowBgPicName.Length != 0)
+            {
+               
+                nowBgImg.sprite = Resources.Load("Background/" + nowBgPicName, typeof(Sprite)) as Sprite;
+                nowBgObj.GetComponent<Appear>().ResetAlphaTunel();
+            }
+            else nowPsImg.sprite = Resources.Load("透明", typeof(Sprite)) as Sprite;
+        }
+    }
+    void getText()
+    {
+        nowString = csvController.GetInstance().getString(index, 3);
+        stringlen = nowString.Length;
+        lenPrinted = 0;
+    }
+    int autoSlide() { 
+        return csvController.GetInstance().getInt(index, 7)==0?int.MaxValue: csvController.GetInstance().getInt(index, 7);
+    }
+    void onClick()
+    {
+        if (lenPrinted < stringlen) { 
+            lenPrinted++;
+            acc = true;
+        }
+        else { 
+            index = csvController.GetInstance().getInt(index, 6);
+            getPsName();
+            getText();
+            getPic();
+            getVisibility();
+            afs = 0;
+            acc = false;
+        }
+
+
+
+    }
+
+    void Update()
+    {
+        if (afs >= autoSlide())
+            onClick();
+        afs ++;
+        if (afs % 5 == 0 || acc) {
+            if (lenPrinted <= stringlen) textOnBoard.text = nowString.Substring(0, lenPrinted);
+            lenPrinted++;
 
         }
-        if (afs > 0) afs--;
-        if (afs % 5 == 0) {
-            lenPrinted++;
-            if (lenPrinted<=stringlen) textOnBoard.text = nextString.Substring(0,lenPrinted);
-        }
-        
 
     }
 }
