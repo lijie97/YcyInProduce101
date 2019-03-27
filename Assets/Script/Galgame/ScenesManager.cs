@@ -5,73 +5,94 @@ using UnityEngine.UI;
 using System.IO;
 
 public class ScenesManager : MonoBehaviour {
-    int index, afs,stringlen,lenPrinted;
+    int index, afs,stringlen,lenPrinted, maxScenes;
     int maxAFS = 220;
-    int maxScenes;
     public GameObject bgmObj;
-    private string Res_BGPath = "Background/";
+    //private string Res_BGPath = "Background/";
     string[] fileData;
     GameObject bgObj;
-    private string nextString;
-    private Text textOnBoard;
-    private string nextPeoplePicName;
-    private string nextBgPicName;
-    private Image nextBgImg,nextBgImgLocader;
-    private int alphaTunel;
-    GameObject nextBgObj;
+    private string nextString, nextBgPicName, nextPsPicName;
+    private Text textOnBoard, textPeopleName;
+    private Image nextBgImg,nextBgImgLocader,bgImg,psImg,nextPsImg;
+    private bool visible;
+    GameObject nextBgObj, nextPsObj, PsObj;
     // Use this for initialization
     void Start () {
-        index = 0;
+        index = 1;
         //Debug.Log("start");
+        PsObj = GameObject.Find("Canvas/Person");
         GameObject bgObj = GameObject.Find("Canvas/Background");
-        GameObject btnObj = GameObject.Find("Canvas/Button");
-        GameObject textObj = GameObject.Find("Canvas/Diag-Box/Text");
+        //GameObject btnObj = GameObject.Find("Canvas/Button");
+        //GameObject textObj = GameObject.Find("Canvas/Diag-Box/Text");
+        //GameObject nextPsObj = GameObject.Find("Canvas/NestPerson");
+        //GameObject textPeopleNameObj = GameObject.Find("Canvas/Diag-Box/NameCard/Text");
         //GameObject peopleObj = GameObject.Find("Canvas/People");
         nextBgObj = GameObject.Find("Canvas/NextBackground");
-        Button btn = btnObj.GetComponent<Button>();
+        nextPsObj = GameObject.Find("Canvas/NextPerson");
+        nextPsImg = GameObject.Find("Canvas/NestPerson").GetComponent<Image>();
+        Button btn = GameObject.Find("Canvas/Button").GetComponent<Button>();
+        textPeopleName = GameObject.Find("Canvas/Diag-Box/NameCard/Text").GetComponent<Text>();
         nextBgImg = nextBgObj.GetComponent<Image>();
+        bgImg = bgObj.GetComponent<Image>();
         btn.onClick.AddListener(onClick);
-        textOnBoard = textObj.GetComponent<Text>();
-        readCSV();
+        textOnBoard = GameObject.Find("Canvas/Diag-Box/Text").GetComponent<Text>();
+        csvController.GetInstance().loadFile(); //readCSV();
+        //########从csv读取第一帧的信息########
         maxScenes = csvController.GetInstance().getSizeY();
-        afs = maxAFS;
+        //afs = maxAFS;
         nextString = csvController.GetInstance().getString(index, 3);
+        //Debug.Log();
+        textPeopleName.text = csvController.GetInstance().getString(index, 2);
+        nextPsPicName = csvController.GetInstance().getString(index, 1);
+        nextBgPicName = csvController.GetInstance().getString(index, 4);
+        //Debug.Log(nextBgPicName);
+        nextBgImg.sprite = Resources.Load("Background/" + nextBgPicName, typeof(Sprite)) as Sprite;
+        nextPsImg.sprite = Resources.Load("img_girls/" + nextPsPicName, typeof(Sprite)) as Sprite;
         stringlen = nextString.Length;
         textOnBoard.text = "";
         lenPrinted = 0;
-    }
-    void readCSV() {
-        csvController.GetInstance().loadFile();
+
     }
 
     void onClick() {
         if (afs > 0) afs = 0;
         else{
-            index += 1;
+            index = csvController.GetInstance().getInt(index, 6);
             afs = maxAFS;
             nextString = csvController.GetInstance().getString(index, 3);
-            nextPeoplePicName = csvController.GetInstance().getString(index, 2);
-            nextBgPicName = csvController.GetInstance().getString(index, 2);
+            nextPsPicName = csvController.GetInstance().getString(index, 1);
             stringlen = nextString.Length;
             lenPrinted = 0;
-            nextBgImgLocader = Resources.Load(Res_BGPath + nextBgPicName, typeof(Image)) as Image;
-            nextBgObj.GetComponent<Image>() = nextBgImgLocader;
+            textPeopleName.text = csvController.GetInstance().getString(index, 2);
+            if (nextBgPicName!=csvController.GetInstance().getString(index, 4)) { 
+                nextBgPicName = csvController.GetInstance().getString(index, 4);
+                nextBgImg.sprite = Resources.Load("Background/" + nextBgPicName, typeof(Sprite)) as Sprite;
+                nextPsImg.sprite = Resources.Load("img_girls/" + nextPsPicName, typeof(Sprite)) as Sprite;
+                nextBgObj.GetComponent<Appear>().appearing = true;
+                nextPsObj.GetComponent<Appear>().appearing = true;
+                nextPsObj.GetComponent<Appear>().disappearing = true;
+                //BgObj.GetComponent<Appear>().appearing = false;
 
-            alphaTunel = 0;
+            }
+
         }
         
     }
 
-    void Update() { 
+    void Update() {
+        if (afs == 0)
+        {
+            bgImg = nextBgImg;
+            psImg = nextPsImg;
+            PsObj.GetComponent<Appear>().fillAlphaTunel();
+
+        }
         if (afs > 0) afs--;
-        
         if (afs % 5 == 0) {
             lenPrinted++;
             if (lenPrinted<=stringlen) textOnBoard.text = nextString.Substring(0,lenPrinted);
         }
-        alphaTunel += 5;
-        if (alphaTunel <= 255) nextBgImg.color = new Color(255, 255, 255, alphaTunel);
-        nextBgObj.GetComponent<Image>().color = new Color(255, 255, 255, alphaTunel);
+        
 
     }
 }
