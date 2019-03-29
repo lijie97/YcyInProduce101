@@ -1,0 +1,9 @@
+Id,Name,Category,Item,SubItem,LoopMode
+1,背景音效,Music,BGM,BGM,TRUE
+2,UI点击音效,Sound,click,click,FALSE
+3,恐龙攻击,Sound,attack,attack,FALSE
+4,恐龙吼叫,Sound,roar,roar,FALSE
+5,恐龙甩尾,Sound,skill1,skill1,FALSE
+6,恐龙践踏,Sound,skill2,skill2,FALSE
+7,恐龙死亡,Sound,die,die,FALSE
+8,恐龙进食,Sound,eat,eat,FALSE

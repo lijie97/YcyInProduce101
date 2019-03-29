@@ -1,0 +1,8 @@
+{
+	"playerInfo": {
+		"coin": 0,
+		"jewel": 0,
+        "playerExp":0,
+        "playerLevel":0
+	}
+}

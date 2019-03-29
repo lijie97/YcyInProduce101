@@ -1,0 +1,16 @@
+打包字体方法
+
+1 菜单->window->TextMeshPro->FontAssetCreator, 弹出打包窗口
+
+2 把需要打包的文字添加到 Font/CustomTxt.txt 文件中
+
+3 Font Source 设置为字体源文件 SourceHanSansSC-Medium.ttf
+  packing method: Optinum
+  CharactersSet : Characters from file  ,下拉框的最后一项
+  CharacterFile: 选择第二步的文件Font/CustomTxt.txt
+  FontRenderMode: Smooth
+
+
+4 点击Generate Font Atlas 生成字体资源
+
+5 点击 Save TextMeshPro Font Asset,保存上面删除的资源，覆盖原有的资源 Font/SourceHanSansSC-Medium.asset
