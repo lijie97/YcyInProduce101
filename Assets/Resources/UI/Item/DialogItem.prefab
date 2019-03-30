@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 224481059306631654}
   - component: {fileID: 222845462757036716}
   - component: {fileID: 114947759715182136}
+  - component: {fileID: 114435865512850546}
   m_Layer: 5
   m_Name: DialogDesc
   m_TagString: Untagged
@@ -74,6 +75,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 114973369283405414}
   dialogText: {fileID: 114947759715182136}
+  fadeInText: {fileID: 114435865512850546}
+--- !u!114 &114435865512850546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1891385516100646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ea640fdd0f84649bfa8cf3835e8abe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToUse: {fileID: 114947759715182136}
+  useThisText: 1
+  textToShow: 
+  useTextText: 1
+  fadeSpeedMultiplier: 1
+  fade: 0
 --- !u!114 &114947759715182136
 MonoBehaviour:
   m_ObjectHideFlags: 1
