@@ -29,29 +29,21 @@ public class PlayerDataEditor : EditorWindow
         return FileTool.IsFileExists("PlayerData");
     }
 
-    private int coinCount;
-    private int jewelCount;
     void OnEnable()
     {
 		PlayerData.Instance.InitData("PlayerData", true, false);
 
-        coinCount = PlayerData.Instance.Coin;
-        jewelCount = PlayerData.Instance.Jewel;
     }
 
 	private Vector2 scrollVector;
     void OnGUI()
     {
 		scrollVector = EditorGUILayout.BeginScrollView (scrollVector);
-        coinCount = EditorGUILayout.IntField("金币-数量", coinCount, GUILayout.Height(20));
-        jewelCount = EditorGUILayout.IntField("钻石-数量", jewelCount, GUILayout.Height(20));
 
         EditorGUILayout.Space();
        
         if (GUILayout.Button("保存数据"))
         {
-            PlayerData.Instance.Coin = coinCount;
-            PlayerData.Instance.Jewel = jewelCount;
             PlayerData.Instance.SaveData();
         }
 		EditorGUILayout.EndScrollView ();

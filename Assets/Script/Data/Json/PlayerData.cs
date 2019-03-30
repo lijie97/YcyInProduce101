@@ -25,56 +25,31 @@ public class PlayerData : IJsonData<PlayerData>
         base.SaveData(JsonConvert.SerializeObject(playerData));
     }
 
-    public Action<int> CoinChangeEvent;
-    public Action<int> JewelChangeEvent;
-    public Action<int> ExpChangeEvent;
-    public Action<int> LevelChangeEvent;
 
     public void ClearAction()
     {
-        CoinChangeEvent = null;
-        JewelChangeEvent = null;
-        ExpChangeEvent = null;
-        LevelChangeEvent = null;
     }
 
     #endregion
 
 
     #region PlayerInfo
-
-    public int Coin
+    /// <summary>
+    /// 获得人物属性参数
+    /// </summary>
+    /// <returns>The property parameter.</returns>
+    /// <param name="propertyID">Property identifier.</param>
+    public PropertyParam GetPropertyParam(int propertyID)
     {
-        get { return playerData.playerInfo.coin; }
-        set
+        for (int i = 0; i < playerData.playerInfo.propertyList.Count; i++)
         {
-            playerData.playerInfo.coin = value;
-
-            if (CoinChangeEvent != null && Application.isPlaying)
-                CoinChangeEvent(value);
-        }
-    }
-
-    public int Jewel
-    {
-        get { return playerData.playerInfo.jewel; }
-        set
-        {
-            int preJewel = playerData.playerInfo.jewel;
-            int newJewel = value;
-
-            playerData.playerInfo.jewel = value;
-
-            try
+            PropertyType type = (PropertyType)propertyID;
+            if(type == playerData.playerInfo.propertyList[i].propertyType)
             {
-                if (JewelChangeEvent != null && Application.isPlaying)
-                    JewelChangeEvent(value);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message + " " + e.StackTrace);
+                return playerData.playerInfo.propertyList[i];
             }
         }
+        return null;
     }
 
     #endregion

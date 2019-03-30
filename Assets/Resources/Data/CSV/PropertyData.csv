@@ -1,0 +1,4 @@
+Id,Name,PropertyType,MaxValue
+1,心情,Mood,100
+2,精力,Vigor,100
+3,话题度,TopicValue,100

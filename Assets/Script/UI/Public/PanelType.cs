@@ -8,16 +8,7 @@ public enum PanelType
 
     //主页
     MainUIPanel = 0,
-    GameUIPanel,
-    InfoPanel,
-    SettingPanel,
-    PropertyPanel,
-	GameEndPanel,
-	TipsPanel,
-    GuidePanel,
-    RebornPanel,
-    MissionAccomplishPanel,
-    PlayerUpgradeAwardPanel,
+    DevelopPanel,
     //空
     None =200,
 }

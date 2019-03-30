@@ -13,21 +13,19 @@ public class PlayerDataParam
 #region 玩家数据
 public class PlayerInfoParam
 {
-    public int coin = 0;
-    public int jewel = 0;
-    public int hpRecoverProp = 1;//血量回复道具
+    public List<PropertyParam> propertyList = new List<PropertyParam>() { new PropertyParam(PropertyType.Mood, 100), new PropertyParam(PropertyType.Vigor,100),new PropertyParam(PropertyType.TopicValue,100)};
+}
 
-    public string lastQuitPos = "(0,0,0)";//上次退出地点
+public class PropertyParam
+{
+    public PropertyType propertyType;
+    public int curValue;
 
-    public string lastDeadPos = "(0,0,0)";//上次死亡地点
-
-    public string lastGetGiftDateTime;//上次领取礼包的时间
-
-    public string lastLoginDateTime;//上次登录时间
-
-    public int dailyGiftTimes = 0;
-
-    public string languageType;
+    public PropertyParam(PropertyType propertyType,int value)
+    {
+        this.propertyType = propertyType;
+        this.curValue = value;
+    }
 }
 #endregion
 

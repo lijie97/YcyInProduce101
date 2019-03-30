@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class UIManager : MonoSingletonBase<UIManager>
 {
-    public GameObject LoadingPanel;
+    //public GameObject LoadingPanel;
     public PanelType curUIPanelType, curStackPeekUIPanelType;
     public Transform[] layerList;
 
@@ -19,10 +19,10 @@ public class UIManager : MonoSingletonBase<UIManager>
     public int loadingPanelIndex = 0, loadingPanelCount = 0;
     private BasePanel infoPanel;
 
-    private void Awake()
+    private void Start()
     {
-
-        LoadingPanel.SetActive(true);
+        Init();
+        ShowPanel(PanelType.DevelopPanel);
     }
 
     private void Update()
@@ -59,11 +59,6 @@ public class UIManager : MonoSingletonBase<UIManager>
 
     public void ShowPanel(PanelType panelType)
     {
-        if (panelType == PanelType.GuidePanel)
-        {
-            ShowGuidePanel();
-            return;
-        }
 
         if (panelStack == null)
             panelStack = new Stack<BasePanel>();
@@ -80,7 +75,6 @@ public class UIManager : MonoSingletonBase<UIManager>
         panelStack.Push(panel);
         curUIPanelType = panel.selfPanelType;
         panel.Show();
-        SetInfoPanelState(panelType);
     }
 
     public void HidePanel()
@@ -100,7 +94,6 @@ public class UIManager : MonoSingletonBase<UIManager>
         BasePanel topPanel2 = panelStack.Peek();
         topPanel2.OnResume();
         curUIPanelType = topPanel2.selfPanelType;
-        SetInfoPanelState(topPanel2.selfPanelType);
 
     }
 
@@ -157,10 +150,6 @@ public class UIManager : MonoSingletonBase<UIManager>
         panelScript.Init();
         panelDict.Add(uiPanelStruct.panelType, panelScript);
         panelLayerDict.Add(uiPanelStruct.panelType, uiPanelStruct.layerType);
-        if (panelScript.selfPanelType == PanelType.InfoPanel)
-        {
-            infoPanel = panelScript;
-        }
         gameObj.SetActive(false);
     }
 
@@ -179,24 +168,6 @@ public class UIManager : MonoSingletonBase<UIManager>
 		LoadingFinish ();
     }
 
-    public void SetInfoPanelState(PanelType panelType)
-    {
-        if (infoPanel != null)
-        {
-            if (GetInfoPanelState(panelType))
-            {
-                infoPanel.Show();
-            }
-            else
-            {
-                infoPanel.Hide();
-            }
-        }
-        else
-        {
-            Debug.LogError("infoPanel还未生成");
-        }
-    }
 
     /// <summary>
     /// 控制infoPanel的显示
@@ -208,26 +179,9 @@ public class UIManager : MonoSingletonBase<UIManager>
         switch (panelType)
         {
             case PanelType.MainUIPanel:
-            case PanelType.GameUIPanel:
-            case PanelType.PropertyPanel:
                 return true;
         }
         return false;
-    }
-
-    public void ShowGuidePanel()
-    {
-        panelDict[PanelType.GuidePanel].Show();
-    }
-
-    public void HideGuidePanel()
-    {
-        panelDict[PanelType.GuidePanel].Hide();
-    }
-
-    public bool GetGuidePanelState()
-    {
-        return panelDict[PanelType.GuidePanel].gameObject.activeSelf;
     }
 
 

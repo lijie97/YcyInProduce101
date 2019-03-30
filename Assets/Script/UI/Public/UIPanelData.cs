@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//[CreateAssetMenu(menuName="UIData/Create UIPanelData ")]
+[CreateAssetMenu(menuName="UIData/Create UIPanelData ")]
 public class UIPanelData : ScriptableObject
 {
     private static UIPanelData _instance = null;
