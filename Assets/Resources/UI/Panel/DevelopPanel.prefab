@@ -689,6 +689,11 @@ MonoBehaviour:
   selfPanelType: 0
   selfPanelLayerType: 0
   propertyItemContainer: {fileID: 224438822440983354}
+  daysText: {fileID: 114770558033072074}
+  timeText: {fileID: 114535528071607638}
+  countDownText: {fileID: 114858771264993642}
+  talentText: {fileID: 114184639829558140}
+  songProficiencyText: {fileID: 114590283997646408}
 --- !u!114 &114199361794076368
 MonoBehaviour:
   m_ObjectHideFlags: 1

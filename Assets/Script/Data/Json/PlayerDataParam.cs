@@ -13,6 +13,11 @@ public class PlayerDataParam
 #region 玩家数据
 public class PlayerInfoParam
 {
+    public int curDays =1;
+    public TimeType curTimeType = TimeType.Morning;
+    public int talentPoint = 0;//才艺点
+    public float songProficiency = 0;//公演曲熟练度
+    public int countDownTime = 100;
     public List<PropertyParam> propertyList = new List<PropertyParam>() { new PropertyParam(PropertyType.Mood, 100), new PropertyParam(PropertyType.Vigor,100),new PropertyParam(PropertyType.TopicValue,100)};
 }
 
@@ -26,6 +31,14 @@ public class PropertyParam
         this.propertyType = propertyType;
         this.curValue = value;
     }
+}
+
+public enum TimeType
+{
+    Morning,
+    Afternoon,
+    Night,
+    LateAtNight
 }
 #endregion
 
