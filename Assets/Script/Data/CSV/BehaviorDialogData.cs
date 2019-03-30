@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 public class BehaviorDialogData : ICSVData<BehaviorDialogData>
 {
@@ -27,7 +28,7 @@ public class BehaviorDialogData : ICSVData<BehaviorDialogData>
         int count = GetBehaviourDialogCount(behaviorType);
         int randomValue = UnityEngine.Random.Range(1, count+1);
         int realID = id * 100 + randomValue;
-        string str = GetProperty("Dialog", realID);
+        string str = Regex.Unescape(GetProperty("Dialog", realID));
         return str;
     }
 

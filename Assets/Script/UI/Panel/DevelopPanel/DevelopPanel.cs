@@ -77,6 +77,7 @@ public class DevelopPanel : BasePanel
         item.transform.localEulerAngles = Vector3.zero;
         item.transform.localScale = Vector3.one;
         item.Init(behaviorType);
+        item.gameObject.SetActive(true);
         return item;
     }
 

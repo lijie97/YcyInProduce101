@@ -32,10 +32,6 @@ public class FadeInTextWordByWord : MonoBehaviour {
         }
 
         words = textToShow.Split('\n');
-        for (int i = 0; i < words.Length; i++)
-        {
-            Debug.Log(words[i]);
-        }
     }
 
     private IEnumerator FadeInText()
