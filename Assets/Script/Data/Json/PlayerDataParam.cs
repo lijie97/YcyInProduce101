@@ -13,12 +13,12 @@ public class PlayerDataParam
 #region 玩家数据
 public class PlayerInfoParam
 {
-    public int curDays =1;
-    public TimeType curTimeType = TimeType.Morning;
+    public int curDays =1;//当前天数
+    public TimeType curTimeType = TimeType.Morning;//当前时间点
     public int talentPoint = 0;//才艺点
     public float songProficiency = 0;//公演曲熟练度
-    public int countDownTime = 100;
-    public List<PropertyParam> propertyList = new List<PropertyParam>() { new PropertyParam(PropertyType.Mood, 100), new PropertyParam(PropertyType.Vigor,100),new PropertyParam(PropertyType.TopicValue,100)};
+    public int countDownTime = 100;//倒计时（距离公演日期）
+    public List<PropertyParam> propertyList = new List<PropertyParam>() { new PropertyParam(PropertyType.Mood, 100), new PropertyParam(PropertyType.Vigor,100),new PropertyParam(PropertyType.TopicValue,100), new PropertyParam(PropertyType.Talent, 0), new PropertyParam(PropertyType.SongProficiency, 0) };
 }
 
 public class PropertyParam
@@ -35,10 +35,28 @@ public class PropertyParam
 
 public enum TimeType
 {
-    Morning,
+    Morning =1,
     Afternoon,
     Night,
     LateAtNight
+}
+
+public enum BehaviorType
+{
+    Go2Class=1,//上课
+    Rehearsal,//排练
+    Interact,//互动
+    Rest//休息
+
+}
+
+public enum PropertyType
+{
+    Mood = 1,//心情
+    Vigor,//精力
+    TopicValue,//话题度
+    Talent,//才艺点
+    SongProficiency//公演歌曲熟练度
 }
 #endregion
 
