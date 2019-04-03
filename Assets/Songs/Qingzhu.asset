@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Qingzhu
   m_EditorClassIdentifier: 
   Name: "\u5E86\u795D"
-  Band: "\u6768\u7F8E\u73B2\u3001\u6768\u7F8E\u742A"
+  Band: "\u521B\u9020101\u5973\u5B69"
   BeatsPerMinute: 141
   AudioStartBeatOffset: 0
   BackgroundTrack: {fileID: 8300000, guid: 29e9dda8b7d1545368bd342ec94bcdb9, type: 3}
@@ -419,7 +419,7 @@ MonoBehaviour:
   - Time: 143
     StringIndex: 1
     Length: 0
-  - Time: 143.5
+  - Time: 143.25
     StringIndex: 0
     Length: 0
   - Time: 144.5

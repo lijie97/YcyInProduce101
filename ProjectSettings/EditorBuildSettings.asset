@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/YcyDevelop.unity
-    guid: 44a382026f6eb43fa8487acd6e90b9f2
+    path: Assets/Scenes/MusicGame.unity
+    guid: 636700f1e866c7e42a45bd59d438f69b
