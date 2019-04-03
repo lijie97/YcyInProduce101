@@ -1,0 +1,652 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 458913dcbbcd4964c8106331a3e4b85b, type: 3}
+  m_Name: Qingzhu
+  m_EditorClassIdentifier: 
+  Name: "\u5E86\u795D"
+  Band: "\u6768\u7F8E\u73B2\u3001\u6768\u7F8E\u742A"
+  BeatsPerMinute: 141
+  AudioStartBeatOffset: 0
+  BackgroundTrack: {fileID: 8300000, guid: 29e9dda8b7d1545368bd342ec94bcdb9, type: 3}
+  Notes:
+  - Time: 7.75
+    StringIndex: 1
+    Length: 1
+  - Time: 8.75
+    StringIndex: 2
+    Length: 3
+  - Time: 15.5
+    StringIndex: 0
+    Length: 1.5
+  - Time: 17
+    StringIndex: 3
+    Length: 0.5
+  - Time: 17.5
+    StringIndex: 1
+    Length: 3
+  - Time: 20.5
+    StringIndex: 2
+    Length: 0.75
+  - Time: 21.25
+    StringIndex: 1
+    Length: 1.75
+  - Time: 23
+    StringIndex: 2
+    Length: 2.5
+  - Time: 25.5
+    StringIndex: 1
+    Length: 3
+  - Time: 28.5
+    StringIndex: 2
+    Length: 2
+  - Time: 43
+    StringIndex: 0
+    Length: 0
+  - Time: 44
+    StringIndex: 0
+    Length: 0
+  - Time: 45
+    StringIndex: 3
+    Length: 0
+  - Time: 46
+    StringIndex: 3
+    Length: 0
+  - Time: 47.25
+    StringIndex: 0
+    Length: 0.5
+  - Time: 48
+    StringIndex: 1
+    Length: 0.75
+  - Time: 49.75
+    StringIndex: 3
+    Length: 0
+  - Time: 50
+    StringIndex: 3
+    Length: 0
+  - Time: 50.25
+    StringIndex: 3
+    Length: 0
+  - Time: 50.75
+    StringIndex: 0
+    Length: 0
+  - Time: 51
+    StringIndex: 0
+    Length: 0
+  - Time: 51.25
+    StringIndex: 0
+    Length: 0
+  - Time: 52.5
+    StringIndex: 0
+    Length: 0
+  - Time: 52.75
+    StringIndex: 0
+    Length: 0
+  - Time: 53
+    StringIndex: 0
+    Length: 0
+  - Time: 53.5
+    StringIndex: 2
+    Length: 0
+  - Time: 54
+    StringIndex: 3
+    Length: 0
+  - Time: 54.5
+    StringIndex: 2
+    Length: 0
+  - Time: 55.25
+    StringIndex: 0
+    Length: 0.5
+  - Time: 56
+    StringIndex: 1
+    Length: 0.5
+  - Time: 57.5
+    StringIndex: 3
+    Length: 0
+  - Time: 57.75
+    StringIndex: 3
+    Length: 0
+  - Time: 58
+    StringIndex: 3
+    Length: 0
+  - Time: 58.5
+    StringIndex: 0
+    Length: 0
+  - Time: 58.75
+    StringIndex: 0
+    Length: 0
+  - Time: 59
+    StringIndex: 0
+    Length: 0
+  - Time: 59.5
+    StringIndex: 2
+    Length: 0
+  - Time: 60
+    StringIndex: 3
+    Length: 0
+  - Time: 60.5
+    StringIndex: 2
+    Length: 0
+  - Time: 61.5
+    StringIndex: 1
+    Length: 0
+  - Time: 62
+    StringIndex: 0
+    Length: 0
+  - Time: 62.5
+    StringIndex: 1
+    Length: 0
+  - Time: 63
+    StringIndex: 1
+    Length: 0.5
+  - Time: 64
+    StringIndex: 0
+    Length: 0.5
+  - Time: 65.5
+    StringIndex: 3
+    Length: 0
+  - Time: 65.75
+    StringIndex: 3
+    Length: 0
+  - Time: 66
+    StringIndex: 3
+    Length: 0
+  - Time: 66.5
+    StringIndex: 0
+    Length: 0
+  - Time: 66.75
+    StringIndex: 0
+    Length: 0
+  - Time: 67
+    StringIndex: 0
+    Length: 0
+  - Time: 68.75
+    StringIndex: 3
+    Length: 0
+  - Time: 69
+    StringIndex: 3
+    Length: 0
+  - Time: 69.25
+    StringIndex: 3
+    Length: 0
+  - Time: 69.75
+    StringIndex: 1
+    Length: 0
+  - Time: 70.25
+    StringIndex: 0
+    Length: 0
+  - Time: 70.75
+    StringIndex: 1
+    Length: 0
+  - Time: 71.25
+    StringIndex: 2
+    Length: 0.5
+  - Time: 72
+    StringIndex: 3
+    Length: 0.5
+  - Time: 73
+    StringIndex: 0
+    Length: 0
+  - Time: 73.5
+    StringIndex: 1
+    Length: 0
+  - Time: 74
+    StringIndex: 2
+    Length: 0
+  - Time: 74.5
+    StringIndex: 3
+    Length: 2.5
+  - Time: 77.5
+    StringIndex: 0
+    Length: 0
+  - Time: 78
+    StringIndex: 0
+    Length: 0
+  - Time: 79
+    StringIndex: 2
+    Length: 0
+  - Time: 80
+    StringIndex: 0
+    Length: 0
+  - Time: 80.5
+    StringIndex: 3
+    Length: 0
+  - Time: 81
+    StringIndex: 2
+    Length: 0
+  - Time: 81.5
+    StringIndex: 0
+    Length: 0
+  - Time: 82
+    StringIndex: 3
+    Length: 0
+  - Time: 82.5
+    StringIndex: 0
+    Length: 0
+  - Time: 83
+    StringIndex: 3
+    Length: 3
+  - Time: 87
+    StringIndex: 2
+    Length: 0
+  - Time: 88
+    StringIndex: 0
+    Length: 0
+  - Time: 88.5
+    StringIndex: 3
+    Length: 0
+  - Time: 89
+    StringIndex: 2
+    Length: 0
+  - Time: 89.5
+    StringIndex: 0
+    Length: 0
+  - Time: 90
+    StringIndex: 3
+    Length: 0
+  - Time: 90.5
+    StringIndex: 0
+    Length: 0
+  - Time: 91
+    StringIndex: 3
+    Length: 3
+  - Time: 95
+    StringIndex: 2
+    Length: 0
+  - Time: 96
+    StringIndex: 0
+    Length: 0
+  - Time: 96.5
+    StringIndex: 3
+    Length: 0
+  - Time: 97
+    StringIndex: 0
+    Length: 0
+  - Time: 97.5
+    StringIndex: 3
+    Length: 0
+  - Time: 98
+    StringIndex: 0
+    Length: 0
+  - Time: 98.5
+    StringIndex: 3
+    Length: 0
+  - Time: 99
+    StringIndex: 2
+    Length: 1
+  - Time: 100
+    StringIndex: 0
+    Length: 1
+  - Time: 101
+    StringIndex: 3
+    Length: 0.5
+  - Time: 102
+    StringIndex: 2
+    Length: 0
+  - Time: 102.5
+    StringIndex: 0
+    Length: 0
+  - Time: 103
+    StringIndex: 3
+    Length: 0
+  - Time: 104
+    StringIndex: 2
+    Length: 0
+  - Time: 104.5
+    StringIndex: 0
+    Length: 0
+  - Time: 105
+    StringIndex: 3
+    Length: 0
+  - Time: 106
+    StringIndex: 0
+    Length: 1
+  - Time: 107
+    StringIndex: 3
+    Length: 3
+  - Time: 112
+    StringIndex: 0
+    Length: 0
+  - Time: 112.5
+    StringIndex: 0
+    Length: 0
+  - Time: 113
+    StringIndex: 1
+    Length: 0
+  - Time: 113.5
+    StringIndex: 1
+    Length: 0
+  - Time: 114
+    StringIndex: 2
+    Length: 0
+  - Time: 114.5
+    StringIndex: 2
+    Length: 0
+  - Time: 115.5
+    StringIndex: 3
+    Length: 0
+  - Time: 116.5
+    StringIndex: 3
+    Length: 0
+  - Time: 118.5
+    StringIndex: 0
+    Length: 0
+  - Time: 119
+    StringIndex: 0
+    Length: 0
+  - Time: 119.5
+    StringIndex: 1
+    Length: 0
+  - Time: 120
+    StringIndex: 1
+    Length: 0
+  - Time: 120.5
+    StringIndex: 1
+    Length: 0
+  - Time: 121.5
+    StringIndex: 2
+    Length: 0
+  - Time: 122
+    StringIndex: 2
+    Length: 0
+  - Time: 122.5
+    StringIndex: 2
+    Length: 0
+  - Time: 123.5
+    StringIndex: 3
+    Length: 0
+  - Time: 128
+    StringIndex: 0
+    Length: 0
+  - Time: 128.5
+    StringIndex: 0
+    Length: 0
+  - Time: 129
+    StringIndex: 1
+    Length: 0
+  - Time: 129.5
+    StringIndex: 1
+    Length: 0
+  - Time: 130
+    StringIndex: 2
+    Length: 0
+  - Time: 130.5
+    StringIndex: 2
+    Length: 0
+  - Time: 131.5
+    StringIndex: 3
+    Length: 0
+  - Time: 132.5
+    StringIndex: 3
+    Length: 0
+  - Time: 134
+    StringIndex: 0
+    Length: 0
+  - Time: 134.5
+    StringIndex: 0
+    Length: 0
+  - Time: 135
+    StringIndex: 1
+    Length: 0
+  - Time: 136
+    StringIndex: 2
+    Length: 0
+  - Time: 136.5
+    StringIndex: 2
+    Length: 0
+  - Time: 137.5
+    StringIndex: 3
+    Length: 0
+  - Time: 138
+    StringIndex: 3
+    Length: 0
+  - Time: 138.5
+    StringIndex: 3
+    Length: 2
+  - Time: 142
+    StringIndex: 1
+    Length: 0
+  - Time: 142.5
+    StringIndex: 0
+    Length: 0
+  - Time: 143
+    StringIndex: 1
+    Length: 0
+  - Time: 143.5
+    StringIndex: 0
+    Length: 0
+  - Time: 144.5
+    StringIndex: 2
+    Length: 0
+  - Time: 145
+    StringIndex: 3
+    Length: 0
+  - Time: 145.5
+    StringIndex: 2
+    Length: 0
+  - Time: 146
+    StringIndex: 3
+    Length: 0
+  - Time: 146.5
+    StringIndex: 2
+    Length: 3
+  - Time: 146.5
+    StringIndex: 1
+    Length: 3
+  - Time: 150.5
+    StringIndex: 1
+    Length: 0
+  - Time: 151
+    StringIndex: 0
+    Length: 0
+  - Time: 151.5
+    StringIndex: 1
+    Length: 0
+  - Time: 152
+    StringIndex: 0
+    Length: 0
+  - Time: 152.5
+    StringIndex: 2
+    Length: 0
+  - Time: 153.5
+    StringIndex: 3
+    Length: 0
+  - Time: 154
+    StringIndex: 2
+    Length: 0
+  - Time: 154.5
+    StringIndex: 0
+    Length: 2.5
+  - Time: 154.5
+    StringIndex: 3
+    Length: 2.5
+  - Time: 158
+    StringIndex: 1
+    Length: 0
+  - Time: 158.5
+    StringIndex: 0
+    Length: 0
+  - Time: 160
+    StringIndex: 2
+    Length: 0
+  - Time: 160.5
+    StringIndex: 3
+    Length: 0
+  - Time: 161.5
+    StringIndex: 1
+    Length: 0
+  - Time: 162
+    StringIndex: 0
+    Length: 0
+  - Time: 162.5
+    StringIndex: 1
+    Length: 0
+  - Time: 164
+    StringIndex: 2
+    Length: 0
+  - Time: 164.5
+    StringIndex: 3
+    Length: 0
+  - Time: 165.5
+    StringIndex: 2
+    Length: 0
+  - Time: 165.5
+    StringIndex: 1
+    Length: 0
+  - Time: 166.5
+    StringIndex: 1
+    Length: 0
+  - Time: 166.5
+    StringIndex: 2
+    Length: 0
+  - Time: 168.25
+    StringIndex: 2
+    Length: 1
+  - Time: 169.25
+    StringIndex: 1
+    Length: 0.5
+  - Time: 169.75
+    StringIndex: 2
+    Length: 0.5
+  - Time: 170.25
+    StringIndex: 1
+    Length: 3.5
+  - Time: 172.75
+    StringIndex: 2
+    Length: 0
+  - Time: 173.75
+    StringIndex: 2
+    Length: 0
+  - Time: 174.75
+    StringIndex: 2
+    Length: 0
+  - Time: 175.75
+    StringIndex: 0
+    Length: 0
+  - Time: 176.25
+    StringIndex: 3
+    Length: 0
+  - Time: 176.75
+    StringIndex: 2
+    Length: 0
+  - Time: 177.25
+    StringIndex: 0
+    Length: 0
+  - Time: 177.75
+    StringIndex: 3
+    Length: 0
+  - Time: 178.25
+    StringIndex: 0
+    Length: 0
+  - Time: 178.75
+    StringIndex: 3
+    Length: 2.75
+  - Time: 182.75
+    StringIndex: 2
+    Length: 0
+  - Time: 183.75
+    StringIndex: 0
+    Length: 0
+  - Time: 184.25
+    StringIndex: 3
+    Length: 0
+  - Time: 184.75
+    StringIndex: 2
+    Length: 0
+  - Time: 185.25
+    StringIndex: 0
+    Length: 0
+  - Time: 185.75
+    StringIndex: 3
+    Length: 0
+  - Time: 186.25
+    StringIndex: 0
+    Length: 0
+  - Time: 186.75
+    StringIndex: 3
+    Length: 2.75
+  - Time: 190.75
+    StringIndex: 2
+    Length: 0
+  - Time: 191.75
+    StringIndex: 0
+    Length: 0
+  - Time: 192.25
+    StringIndex: 3
+    Length: 0
+  - Time: 192.75
+    StringIndex: 2
+    Length: 0
+  - Time: 193.25
+    StringIndex: 0
+    Length: 0
+  - Time: 193.75
+    StringIndex: 3
+    Length: 0
+  - Time: 194.25
+    StringIndex: 2
+    Length: 0
+  - Time: 194.75
+    StringIndex: 1
+    Length: 1
+  - Time: 195.75
+    StringIndex: 2
+    Length: 0.75
+  - Time: 196.5
+    StringIndex: 1
+    Length: 0.5
+  - Time: 197.5
+    StringIndex: 1
+    Length: 0
+  - Time: 197.5
+    StringIndex: 3
+    Length: 0
+  - Time: 198
+    StringIndex: 0
+    Length: 0
+  - Time: 198
+    StringIndex: 2
+    Length: 0
+  - Time: 198.5
+    StringIndex: 1
+    Length: 0
+  - Time: 198.5
+    StringIndex: 3
+    Length: 0
+  - Time: 199.5
+    StringIndex: 0
+    Length: 0
+  - Time: 199.5
+    StringIndex: 2
+    Length: 0
+  - Time: 200
+    StringIndex: 3
+    Length: 0
+  - Time: 200
+    StringIndex: 1
+    Length: 0
+  - Time: 200.5
+    StringIndex: 0
+    Length: 0
+  - Time: 200.5
+    StringIndex: 2
+    Length: 0
+  - Time: 201.5
+    StringIndex: 1
+    Length: 0
+  - Time: 201.5
+    StringIndex: 3
+    Length: 0
+  - Time: 202.5
+    StringIndex: 0
+    Length: 3
+  - Time: 202.5
+    StringIndex: 2
+    Length: 3
