@@ -37,10 +37,14 @@ public class MusicGame_UIManager : MonoBehaviour {
     //public Image gradeStatus;          //游戏难度等级显示UI；
     //protected int curSongID;           //当前播放歌曲的ID；
     public bool gameFinisher=true;       //游戏完成还是失败
+    SongPlayer player;
+    public Text pauseTip;                //暂停后再次播放时读秒
     // Use this for initialization
     void Start()
     {
+        
         guitarGameplay = GetComponent<GuitarGameplay>();
+        player = GetComponent<SongPlayer>();
     }
 
     // Update is called once per frame
@@ -60,8 +64,7 @@ public class MusicGame_UIManager : MonoBehaviour {
 
     //创建歌曲列表
     public void creatSongList()
-    {
-        //Draw all songs in the playlist
+    {       
         SongData[] playlist = GetComponent<GuitarGameplay>().GetPlaylist();
         for (int i = 0; i < playlist.Length; i++)
         {
@@ -148,7 +151,6 @@ public class MusicGame_UIManager : MonoBehaviour {
         }
         else
         {
-
             PlayerPrefs.SetString("MaxScore", Score);
         }
 
@@ -216,6 +218,9 @@ public class MusicGame_UIManager : MonoBehaviour {
 
 
     //创建连击提示
+
+
+
     public IEnumerator DisplayText(string text)
     {     
         HitTips.text = text;
@@ -225,6 +230,47 @@ public class MusicGame_UIManager : MonoBehaviour {
         {
             HitTips.gameObject.SetActive(false);
         }     
+    }
+
+
+    //控制播放和暂停
+    public void PauseOrPlay(GameObject tempBtn)
+    {
+        if (player.IsPlaying())
+        {
+            player.Pause();
+            tempBtn.GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text = "开始";
+        }
+        else
+        {
+            tempBtn.GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text = "暂停";
+            pauseTip.gameObject.SetActive(true);
+            pauseTip.GetComponent<Text>().text = timer.ToString();
+            StartCoroutine(gameBeginPlay());
+            //player.Play();
+        }
+    }
+
+   
+    int timer = 3;
+    IEnumerator gameBeginPlay()
+    {     
+        if (timer <= 0)
+        {
+            pauseTip.GetComponent<Text>().text = timer.ToString();
+            player.Play();         
+            timer = 3;       
+            pauseTip.gameObject.SetActive(false);
+            StopCoroutine("Timers");
+
+        }
+        else
+        {
+            yield return new WaitForSeconds(1);
+            timer -= 1;
+            pauseTip.GetComponent<Text>().text = timer.ToString();                 
+            StartCoroutine(gameBeginPlay());
+        }
     }
 
 

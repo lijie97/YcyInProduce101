@@ -465,10 +465,7 @@ public class GuitarGameplay : MonoBehaviour
         if (note.transform.position.z > 0.9f)  //δMiss
         {
             if (note.transform.position.z>2.43f)  //miss
-            {
-                //uiManager.reduceHp(0.1f);              
-                //combo = 0;
-                Debug.Log("miss");
+            {             
                 return false;
             }
             else if (note.transform.position.z > 2f && note.transform.position.z < 2.43f)  //good
@@ -515,19 +512,12 @@ public class GuitarGameplay : MonoBehaviour
                 return true;
             }
             else
-            {
-                //Miss
-                //uiManager.reduceHp(0.1f);
-                //combo = 0;
-                Debug.Log("miss");
+            {               
                 return false;
             }
         }
         else
-        {          
-            //uiManager.reduceHp(0.1f);
-            //combo = 0;
-            Debug.Log("miss");
+        {                             
             return false;
         }       
 	}
