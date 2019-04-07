@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 1fd67eb9f24114ee79ddee83222f647c
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: REEJI-BigYoung-BoldGB2.0
+  fontNames:
+  - REEJI-BigYoung-BoldGB2.0
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
