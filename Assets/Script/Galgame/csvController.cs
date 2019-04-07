@@ -49,6 +49,7 @@ public class csvController
         sr.Close();
         sr.Dispose();
     }
+
     public int getSizeY() {
         return arrayData.Count;
     }
