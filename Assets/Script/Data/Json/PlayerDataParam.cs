@@ -20,6 +20,8 @@ public class PlayerInfoParam
     public int countDownTime = 100;//倒计时（距离公演日期）
     public int curStoryIndex = 1;
     public List<PropertyParam> propertyList = new List<PropertyParam>() { new PropertyParam(PropertyType.Mood, 100), new PropertyParam(PropertyType.Vigor,100),new PropertyParam(PropertyType.TopicValue,100), new PropertyParam(PropertyType.Talent, 0), new PropertyParam(PropertyType.SongProficiency, 0) };
+    public bool isMusicGame = false;
+    public int curMaxScore = 0;
 }
 
 public class PropertyParam

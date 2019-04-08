@@ -33,6 +33,11 @@ public class DevelopPanel : BasePanel
     {
         base.Show();
         RefreshInfo();
+        if(PlayerData.Instance.playerData.playerInfo.isMusicGame == true)
+        {
+            MusicGameCB();
+            PlayerData.Instance.playerData.playerInfo.isMusicGame = false;
+        }
     }
     public void SetPlayerPropertyChange(PropertyChangeParam[] changeParams)
     {
@@ -73,9 +78,22 @@ public class DevelopPanel : BasePanel
                     SceneManager.LoadScene("Stories");
                     break;
                 case BehaviorType.Rehearsal:
+                    PlayerData.Instance.playerData.playerInfo.isMusicGame = true;
                     SceneManager.LoadScene("MusicGame");
                     break;
             }
+        });
+    }
+
+    private void MusicGameCB()
+    {
+        canvasFade.FadeOut(1f, () =>
+        {
+            PropertyChangeParam[] changeParams = BehaviorData.Instance.GetPropertyChangeParams(BehaviorType.Rehearsal);
+            SetPlayerPropertyChange(changeParams);
+            RefreshInfo();
+            DialogItem dialogItem = CreateDialogItem(BehaviorType.Rehearsal);
+            dialogItem.ShowFadeText();
         });
     }
 
