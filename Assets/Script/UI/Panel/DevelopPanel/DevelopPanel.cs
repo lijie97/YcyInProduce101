@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using PathologicalGames;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DevelopPanel : BasePanel
 {
 
     public Transform propertyItemContainer,dialogItemContainer;
     private List<PropertyItem> propertyItems = new List<PropertyItem>();
-    public TextMeshProUGUI daysText, timeText, countDownText, talentText, songProficiencyText;
+    public TextMeshProUGUI timeText, countDownText, talentText, songProficiencyText;
     private Fade canvasFade;
     private SpawnPool uiItemPool;
     public override void Init()
@@ -43,12 +44,12 @@ public class DevelopPanel : BasePanel
 
     private void RefreshInfo()
     {
-        daysText.text = string.Format("第<color=green>{0}</color>天", PlayerData.Instance.playerData.playerInfo.curDays);
+        //daysText.text = string.Format("第<color=green>{0}</color>天", PlayerData.Instance.playerData.playerInfo.curDays);
         timeText.text = DataManager.Instance.GetTimeTypeStr(PlayerData.Instance.playerData.playerInfo.curTimeType);
-        countDownText.text = string.Format("距离公演还有<color=green>{0}</color>天", PlayerData.Instance.playerData.playerInfo.countDownTime);
+        countDownText.text = string.Format("{0}", PlayerData.Instance.playerData.playerInfo.countDownTime);
         int talentPoint = PlayerData.Instance.playerData.playerInfo.talentPoint;
-        talentText.text = string.Format("才艺点：<color=green>{0}</color>（分数加成{1}）", talentPoint, DataManager.Instance.GetTalentAddition(talentPoint));
-        songProficiencyText.text = string.Format("公演曲熟练度: <color=green>{0}</color>%", PlayerData.Instance.playerData.playerInfo.songProficiency);
+        talentText.text = talentPoint.ToString();
+        songProficiencyText.text = string.Format("{0}%", PlayerData.Instance.playerData.playerInfo.songProficiency);
     }
 
     private void ShowFadeCavasAndSetValue(BehaviorType behaviorType)
@@ -66,6 +67,12 @@ public class DevelopPanel : BasePanel
                 dialogItem.ShowFadeText();
             });
             PlayerData.Instance.SetNextTimePoint();
+            switch (behaviorType)
+            {
+                case BehaviorType.Go2Class:
+                    SceneManager.LoadScene("Stories");
+                    break;
+            }
         });
     }
 

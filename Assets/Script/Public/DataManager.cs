@@ -16,13 +16,13 @@ public class DataManager : MonoSingletonBase<DataManager>
         switch (timeType)
         {
             case TimeType.Morning:
-                return "上午";
+                return "上           午";
             case TimeType.Afternoon:
-                return "下午";
+                return "下           午";
             case TimeType.Night:
-                return "晚上";
+                return "晚           上";
             case TimeType.LateAtNight:
-                return "深夜";
+                return "深           夜";
             default:
                 return "";
         }

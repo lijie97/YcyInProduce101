@@ -18,6 +18,7 @@ public class PlayerInfoParam
     public int talentPoint = 0;//才艺点
     public float songProficiency = 0;//公演曲熟练度
     public int countDownTime = 100;//倒计时（距离公演日期）
+    public int curStoryIndex = 1;
     public List<PropertyParam> propertyList = new List<PropertyParam>() { new PropertyParam(PropertyType.Mood, 100), new PropertyParam(PropertyType.Vigor,100),new PropertyParam(PropertyType.TopicValue,100), new PropertyParam(PropertyType.Talent, 0), new PropertyParam(PropertyType.SongProficiency, 0) };
 }
 
