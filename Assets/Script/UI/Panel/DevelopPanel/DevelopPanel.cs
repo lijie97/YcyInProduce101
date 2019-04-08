@@ -13,6 +13,7 @@ public class DevelopPanel : BasePanel
     public TextMeshProUGUI timeText, countDownText, talentText, songProficiencyText;
     private Fade canvasFade;
     private SpawnPool uiItemPool;
+    public List<GameObject> lightBoxList = new List<GameObject>();
     public override void Init()
     {
         base.Init();
@@ -68,6 +69,7 @@ public class DevelopPanel : BasePanel
                 PropertyChangeParam[] changeParams = BehaviorData.Instance.GetPropertyChangeParams(behaviorType);
                 SetPlayerPropertyChange(changeParams);
                 RefreshInfo();
+                ShowLightBox(behaviorType);
                 DialogItem dialogItem = CreateDialogItem(behaviorType);
                 dialogItem.ShowFadeText();
             });
@@ -107,6 +109,20 @@ public class DevelopPanel : BasePanel
         item.Init(behaviorType);
         item.gameObject.SetActive(true);
         return item;
+    }
+
+    private void ShowLightBox(BehaviorType behaviorType)
+    {
+        int i = (int)(behaviorType - 1);
+        lightBoxList[i].gameObject.SetActive(true);
+    }
+
+    public void HideAllLightBox()
+    {
+        for (int i = 0; i < lightBoxList.Count; i++)
+        {
+            lightBoxList[i].gameObject.SetActive(false);
+        }
     }
 
     #region Click
