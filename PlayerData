@@ -1,8 +1,1 @@
-{
-	"playerInfo": {
-		"coin": 0,
-		"jewel": 0,
-        "playerExp":0,
-        "playerLevel":0
-	}
-}
+{"playerInfo":{"curDays":1,"curTimeType":3,"talentPoint":0,"songProficiency":0.0,"countDownTime":100,"curStoryIndex":1,"propertyList":[{"propertyType":1,"curValue":100},{"propertyType":2,"curValue":100},{"propertyType":3,"curValue":100},{"propertyType":4,"curValue":0},{"propertyType":5,"curValue":0},{"propertyType":1,"curValue":90},{"propertyType":2,"curValue":90},{"propertyType":3,"curValue":90},{"propertyType":4,"curValue":-10},{"propertyType":5,"curValue":-10},{"propertyType":1,"curValue":100},{"propertyType":2,"curValue":100},{"propertyType":3,"curValue":100},{"propertyType":4,"curValue":0},{"propertyType":5,"curValue":0}]}}

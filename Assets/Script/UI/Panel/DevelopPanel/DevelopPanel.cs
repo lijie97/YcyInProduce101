@@ -72,6 +72,9 @@ public class DevelopPanel : BasePanel
                 case BehaviorType.Go2Class:
                     SceneManager.LoadScene("Stories");
                     break;
+                case BehaviorType.Rehearsal:
+                    SceneManager.LoadScene("MusicGame");
+                    break;
             }
         });
     }

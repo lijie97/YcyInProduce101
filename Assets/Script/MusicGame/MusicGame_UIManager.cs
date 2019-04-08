@@ -161,7 +161,7 @@ public class MusicGame_UIManager : MonoBehaviour {
             SettlementBG.transform.Find("NewRecord").GetComponent<Text>().enabled = true;
             SettlementBG.transform.Find("NewRecord").GetComponent<Text>().text = "游戏挑战失败";
         }
-
+        goBackMainMenu();
     }
         
            
@@ -169,7 +169,7 @@ public class MusicGame_UIManager : MonoBehaviour {
     //返回主菜单
     public void goBackMainMenu()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("YcyDevelop");
     }
 
 
