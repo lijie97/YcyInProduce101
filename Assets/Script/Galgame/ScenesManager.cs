@@ -15,14 +15,17 @@ public class ScenesManager : MonoBehaviour
     Text textOnBoard, textPsName,textOnBtnOpt1, textOnBtnOpt2, textOnBtnOpt3;
     Image nowBgImg, nowBgImgLocader, nowPsImg;
     bool visible,acc;
-    public Button btn,btnOpt1, btnOpt2, btnOpt3;
-    GameObject nowBgObj, nowPsObj;
+    Button btn,btnOpt1, btnOpt2, btnOpt3;
+    GameObject nowBgObj, nowPsObj,nameCardObj,diagBoxObj;
 
     void Start()
     {
         index = 1;
+
         //Debug.Log("start");
-      
+        nameCardObj = GameObject.Find("Canvas/DiagBox/NameCard");
+        diagBoxObj = GameObject.Find("Canvas/DiagBox");
+
         nowBgObj = GameObject.Find("Canvas/NowBackground");
         nowPsObj = GameObject.Find("Canvas/NowPerson");
         
@@ -40,7 +43,7 @@ public class ScenesManager : MonoBehaviour
         obj = GameObject.Find("Canvas/OptionsButton3");
         if (obj) btnOpt3 = obj.GetComponent<Button>();
         //btnOpt3 = obj.GetComponent<Button>();
-
+        
         btnOpt1.onClick.AddListener(onClickOpt1);
         btnOpt2.onClick.AddListener(onClickOpt2);
         btnOpt3.onClick.AddListener(onClickOpt3);
@@ -54,6 +57,9 @@ public class ScenesManager : MonoBehaviour
         textOnBoard = GameObject.Find("Canvas/DiagBox/Text").GetComponent<Text>();
         //Debug.Log(textOnBoard.text);
 
+ 
+
+        
         csvController.GetInstance().loadFile(); //readCSV();
         //########从csv读取第一帧的信息########
         maxScenes = csvController.GetInstance().getSizeY();
@@ -61,6 +67,7 @@ public class ScenesManager : MonoBehaviour
         getPsName();
         getPic();
         getOptions();
+        changePersonPos();
         getText();
         getVisibility();
         afs = 0;
@@ -111,20 +118,33 @@ public class ScenesManager : MonoBehaviour
         visible = csvController.GetInstance().getInt(index, 6)==1;
         if (!visible)
         {
-            GameObject.Find("Canvas/DiagBox/NameCard").GetComponent<Appear>().disappear();
-            GameObject.Find("Canvas/DiagBox").GetComponent<Appear>().disappear();
+            if (nameCardObj)
+                nameCardObj.GetComponent<Appear>().disappear();
+            if (diagBoxObj)
+                diagBoxObj.GetComponent<Appear>().disappear();
             //GameObject.Find("Canvas/Diag-Box").GetComponent<Appear>().disappear();
         }
         else {
-            GameObject.Find("Canvas/DiagBox/NameCard").GetComponent<Appear>().appear();
-            GameObject.Find("Canvas/DiagBox").GetComponent<Appear>().appear();
+            if (nameCardObj)
+                nameCardObj.GetComponent<Appear>().appear();
+            if (diagBoxObj)
+                diagBoxObj.GetComponent<Appear>().appear();
         }
     }
     void getPsName()
     {
         if (textPsName) textPsName.text = csvController.GetInstance().getString(index, 2);
     }
+    void changePersonPos() {
+        if (csvController.GetInstance().getInt(index, 5) == 1)
+        {
+            Debug.Log("1");
+            nowPsObj.GetComponent<RectTransform>().anchoredPosition = new Vector3(1400f, nowPsObj.GetComponent<RectTransform>().anchoredPosition.y);
+        }
+        else
+            nowPsObj.GetComponent<RectTransform>().anchoredPosition = new Vector3(600f, nowPsObj.GetComponent<RectTransform>().anchoredPosition.y);
 
+    }
     void getPic()
     {
        
@@ -132,9 +152,10 @@ public class ScenesManager : MonoBehaviour
             nowPsPicName = csvController.GetInstance().getString(index, 1);
             if (nowPsPicName.Length != 0)
             {
-                
-                nowPsImg.sprite = Resources.Load("img_girls/" + nowPsPicName, typeof(Sprite)) as Sprite;
+                nowPsImg.sprite = Resources.Load("透明", typeof(Sprite)) as Sprite;
                 nowPsObj.GetComponent<Appear>().ResetAlphaTunel();
+                nowPsImg.sprite = Resources.Load("img_girls/" + nowPsPicName, typeof(Sprite)) as Sprite;
+                
             }
         else {
                 nowPsImg.sprite = Resources.Load("透明", typeof(Sprite)) as Sprite;
@@ -163,29 +184,35 @@ public class ScenesManager : MonoBehaviour
         return csvController.GetInstance().getInt(index, 8)==0?int.MaxValue: csvController.GetInstance().getInt(index, 7);
     }
     void changeScene() {
+        
         if (csvController.GetInstance().getString(index, 19).Length!= 0)
-            SceneManager.LoadScene(csvController.GetInstance().getString(index, 19));
+        {
+            index++;
+            SceneManager.LoadScene(csvController.GetInstance().getString(index-1, 19));
+        }
     }
 
     void onClick()
     {
         if (lenPrinted < stringlen) { 
-            lenPrinted++;
+            //lenPrinted++;
             acc = true;
         }
         else {
+            //Debug.Log(csvController.GetInstance().getInt(index, 7));
             if (option == 0)
                 index = csvController.GetInstance().getInt(index, 7);
             else { 
                 index = csvController.GetInstance().getInt(index,9+2*option);
             }
+            
             changeScene();
             getPsName();
             getText();
             getPic();
             getOptions();
             getVisibility();
-            
+            changePersonPos();
             afs = 0;
             acc = false;
             option = 0;
@@ -194,6 +221,23 @@ public class ScenesManager : MonoBehaviour
 
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.A) && csvController.GetInstance().getInt(index, 9) == 1)
+        {
+            onClickOpt1();
+        }
+        if (Input.GetKeyDown(KeyCode.S) && csvController.GetInstance().getInt(index, 9) == 1)
+        {
+            onClickOpt2();
+        }
+        if (Input.GetKeyDown(KeyCode.D) && csvController.GetInstance().getInt(index, 9) == 1)
+        {
+            onClickOpt3();
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow) && csvController.GetInstance().getInt(index, 9) == 0)
+        {
+            onClick();
+        }
         if (afs >= autoSlide())
             onClick();
         afs ++;

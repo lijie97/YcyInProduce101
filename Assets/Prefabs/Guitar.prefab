@@ -336,7 +336,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -360,7 +360,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!1002 &8200001
 EditorExtensionImpl:
   serializedVersion: 6
@@ -761,6 +761,11 @@ MonoBehaviour:
   NotePrefab: {fileID: 100000, guid: 86f691262ec8a824cbee31f897f8df1e, type: 2}
   Playlist:
   - {fileID: 0}
+  keyNum: 4
+  Key1_Xpos: 0
+  Key2_Xpos: 0
+  Key3_Xpos: 0
+  Key4_Xpos: 0
 --- !u!1002 &11400009
 EditorExtensionImpl:
   serializedVersion: 6
