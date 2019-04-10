@@ -9,6 +9,7 @@ public enum PanelType
     //主页
     MainUIPanel = 0,
     DevelopPanel,
+    StoryPanel,
     //空
     None =200,
 }
