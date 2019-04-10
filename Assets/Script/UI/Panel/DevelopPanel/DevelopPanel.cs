@@ -77,7 +77,7 @@ public class DevelopPanel : BasePanel
             switch (behaviorType)
             {
                 case BehaviorType.Go2Class:
-                    SceneManager.LoadScene("Stories");
+                    //SceneManager.LoadScene("Stories");
                     break;
                 case BehaviorType.Rehearsal:
                     PlayerData.Instance.playerData.playerInfo.isMusicGame = true;
