@@ -39,6 +39,7 @@ public class MusicGame_UIManager : MonoBehaviour {
     public bool gameFinisher=true;       //游戏完成还是失败
     SongPlayer player;
     public Text pauseTip;                //暂停后再次播放时读秒
+    public GameObject pausePanel;
     // Use this for initialization
     void Start()
     {
@@ -64,12 +65,18 @@ public class MusicGame_UIManager : MonoBehaviour {
 
     //创建歌曲列表
     public void creatSongList()
-    {       
+    {
+        setSongList.ClearSongList();
+        setSongList._addSongList("创造101");
         SongData[] playlist = GetComponent<GuitarGameplay>().GetPlaylist();
         for (int i = 0; i < playlist.Length; i++)
         {
             string buttonLabel = playlist[i].Band + " - " + playlist[i].Name;
-            GameObject playList = Instantiate(Resources.Load<GameObject>("UIPerfebs/songList"));
+            GameObject playList = Instantiate(Resources.Load<GameObject>("UIPerfebs/songList"));           
+            if (!setSongList.GetSongList.Contains(playlist[i].Name))
+            {
+                playList.SetActive(false);
+            }
             playList.transform.parent = SongList.transform.Find("Viewport").Find("Content").transform;
             playList.name = i.ToString();
             playList.transform.GetChild(0).GetComponent<Text>().text = playlist[i].Name;
@@ -234,32 +241,34 @@ public class MusicGame_UIManager : MonoBehaviour {
 
 
     //控制播放和暂停
-    public void PauseOrPlay(GameObject tempBtn)
+    public void PauseOrPlay()
     {
         if (player.IsPlaying())
         {
             player.Pause();
-            tempBtn.GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text = "开始";
+            pausePanel.SetActive(true);
+          
         }
         else
-        {
-            tempBtn.GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text = "暂停";
+        {            
             pauseTip.gameObject.SetActive(true);
             pauseTip.GetComponent<Text>().text = timer.ToString();
+            pausePanel.SetActive(false);
             StartCoroutine(gameBeginPlay());
             //player.Play();
         }
     }
 
-   
     int timer = 3;
+    float volumeValue = 0.5f;
     IEnumerator gameBeginPlay()
-    {     
+    {
         if (timer <= 0)
         {
             pauseTip.GetComponent<Text>().text = timer.ToString();
-            player.Play();         
-            timer = 3;       
+            GetComponent<AudioSource>().volume = volumeValue;
+            player.Play();
+            timer = 3;
             pauseTip.gameObject.SetActive(false);
             StopCoroutine("Timers");
 
@@ -268,10 +277,22 @@ public class MusicGame_UIManager : MonoBehaviour {
         {
             yield return new WaitForSeconds(1);
             timer -= 1;
-            pauseTip.GetComponent<Text>().text = timer.ToString();                 
+            pauseTip.GetComponent<Text>().text = timer.ToString();
             StartCoroutine(gameBeginPlay());
         }
     }
+
+
+
+    //音量控制
+    public void ControlVolume(Slider slider)
+    {
+        volumeValue = slider.value;
+    }
+
+
+
+
 
 
 }

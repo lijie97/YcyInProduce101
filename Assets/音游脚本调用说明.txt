@@ -1,0 +1,56 @@
+
+
+
+// 一 ：音游接口部分
+
+  1.设置歌曲接口
+
+   
+    如果需要播放某些歌曲，调用下面函数即可，将需要播放的歌曲添加进列表
+    setSongList._addSongList("歌曲名字");
+
+
+    如果只需要播放一首，先需要调用下面这个函数。再调用添加歌曲函数
+    setSongList.ClearSongList();
+    setSongList._addSongList("歌曲名字");
+
+
+
+
+
+
+
+
+
+
+
+二.音游部分关键函数说明
+
+1.长短音符击打判定部分：
+  长音符 / 短音符判定
+
+脚本 ：GuitarGameplay 的 ShowFireParticles 协程函数里是hit effect（短音符）的效果
+
+       GuitarGameplay 的 TrailHitRoutine 协程函数里是long note effectt（长击音符）的效果
+       所以音符长击 短击效果可在这里设置。
+
+
+
+2. 音符击打区间判定
+  
+脚本 ：GuitarGameplay 的 IsInHitZone函数 判定不同击打区间（ good great判定等）；
+
+
+3. 歌曲完成
+
+脚本 ：GuitarGameplay 的 OnSongFinished 函数  
+
+歌曲播放完成后调用此函数。
+
+
+
+4. 音符miss时。
+
+脚本 ：GuitarGameplay 的 UpdateNotes 函数中的if(WasNoteMissed(i)) 条件语句用来判定音符是否miss，
+如有需求，可在此判断中实现由miss触发的逻辑
+ 
