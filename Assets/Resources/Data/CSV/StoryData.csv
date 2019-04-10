@@ -1,3 +1,3 @@
-Id,BgName,CharacterName,CharacterIconName,DialogText,StartEvent,ShowType,ClickType,ClickAction,SelectResultNextID,NextID
-,背景sprite名字,角色名字,角色icon名字,对话,开始事件,展示类型,点击类型,点击事件,如果是选择类型，分别用|表示选择的下一个id，例子（1|102+2|102+3|102+4|102）,下一个对白
-101,舞台亮灯,旁白,旁白,下一组，有请华研国际练习生登场,,Dialog,FullScreen,EnterSelectLevelPanel,,102
+Id,BgName,CharacterName,CharacterIconName,DialogText,StartEvent,ShowType,DialogType,ClickAction,SelectResultNextID,NextID
+,背景sprite名字,角色名字,角色icon名字,对话,开始事件,展示类型,对话类型,点击事件,如果是选择类型，分别用|表示选择的下一个id，例子（1|102+2|102+3|102+4|102）,下一个对白
+101,舞台亮灯,旁白,旁白,下一组，有请华研国际练习生登场,,Dialog,FullScreen,,,102
