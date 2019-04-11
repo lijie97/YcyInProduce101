@@ -74,17 +74,23 @@ public class StoryData : ICSVData<StoryData>
         string str = GetProperty("SelectResultNextID",id);
         string[] selectStr = str.Split('+');
         List<SelectResultNextIDParam> selectResultNextIDParams = new List<SelectResultNextIDParam>();
+        string[] selectDialogs = GetSelectDialogTextArray(id);
         for (int i = 0; i < selectStr.Length; i++)
         {
             string[] paramStr =  selectStr[i].Split('|');
-            SelectResultNextIDParam param = new SelectResultNextIDParam(int.Parse(paramStr[0]),int.Parse(paramStr[1]));
+            SelectResultNextIDParam param = new SelectResultNextIDParam(int.Parse(paramStr[0]),int.Parse(paramStr[1]),selectDialogs[i]);
             selectResultNextIDParams.Add(param);
         }
         return selectResultNextIDParams;
     }
 
-
-
+   
+    public string[] GetSelectDialogTextArray(int id)
+    {
+        string str = GetProperty("SelectDialogText", id);
+        string[] selectDialogStr = str.Split('|');
+        return selectDialogStr;
+    }
 
 }
 
@@ -129,10 +135,11 @@ public class SelectResultNextIDParam
 {
     public int selectID;
     public int nextID;
-
-    public SelectResultNextIDParam(int selectID,int nextID)
+    public string selectDialogText;
+    public SelectResultNextIDParam(int selectID,int nextID,string selectDialogText)
     {
         this.selectID = selectID;
         this.nextID = nextID;
+        this.selectDialogText = selectDialogText;
     }
 }

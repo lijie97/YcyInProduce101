@@ -8,6 +8,8 @@ public class StoryPanel : BasePanel
 
     public Image characterIcon, bg;
     public Text dialogText, characterName;
+    public GameObject selectDialogObj,dialogObj;
+    public Button clickArea;
 
     private int curStoryID;
     public override void Init()
@@ -18,7 +20,23 @@ public class StoryPanel : BasePanel
     public void SetDataById(int id)
     {
         curStoryID = id;
+        StoryParam param = new StoryParam(id);
+        if (!string.IsNullOrEmpty(param.dialogText))
+        {
+            dialogText.text = param.dialogText;
+        }
+        characterName.text = param.characterName;
+        characterIcon.sprite = AtlasManager.Instance.GetSprite(AtlasType.UIAtlas, param.characterIconName);
 
+
+        bg.sprite = AtlasManager.Instance.GetSprite(AtlasType.UIAtlas, param.bgName);
+
+        //if(param.dialogType == DialogType.SelectDialog)
+        //{
+        //    param.selectResultNextIDParams
+        //}
+        selectDialogObj.SetActive(param.dialogType == DialogType.SelectDialog);
+        dialogObj.SetActive(param.dialogType != DialogType.SelectDialog);
         if (IsInvoking("DelayCallEvent"))
         {
             CancelInvoke("DelayCallEvent");
@@ -31,7 +49,6 @@ public class StoryPanel : BasePanel
         string strEvent = StoryData.Instance.GetStartEvent(curStoryID);
         if (!string.IsNullOrEmpty(strEvent))
         {
-
             StoryEvent.Instance.gameObject.SendMessage(strEvent);
         }
     }
