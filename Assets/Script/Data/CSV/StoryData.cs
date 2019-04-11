@@ -92,6 +92,12 @@ public class StoryData : ICSVData<StoryData>
         return selectDialogStr;
     }
 
+    public CharacterIconDir GetCharacterIconDir(int id)
+    {
+        CharacterIconDir dir = (CharacterIconDir)Enum.Parse(typeof(CharacterIconDir), GetProperty("CharacterIconDir", id));
+        return dir;
+    }
+
 }
 
 
@@ -107,7 +113,7 @@ public class StoryParam
     public int nextID;
     public string characterName;
     public string characterIconName;
-
+    public CharacterIconDir characterIconDir;
     public StoryParam(int storyID)
     {
         this.storyID = storyID;
@@ -120,7 +126,7 @@ public class StoryParam
         this.nextID = StoryData.Instance.GetNextID(storyID);
         this.characterName = StoryData.Instance.GetCharacterName(storyID);
         this.characterIconName = StoryData.Instance.GetCharacterIconName(storyID);
-
+        this.characterIconDir = StoryData.Instance.GetCharacterIconDir(storyID);
     }
 }
 
@@ -130,6 +136,13 @@ public enum DialogType
     SelectDialog,
 }
 
+
+public enum CharacterIconDir
+{
+    Left,
+    Right,
+    Mid
+}
 
 public class SelectResultNextIDParam
 {

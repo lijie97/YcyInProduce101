@@ -8,10 +8,11 @@ public class StoryPanel : BasePanel
 
     public Image characterIcon, bg;
     public Text dialogText, characterName;
-    public GameObject selectDialogObj,dialogObj;
+    public GameObject optionDialogObj,dialogObj;
     public Button clickArea;
-
+    public List<Button> optionsBtn = new List<Button>();
     private int curStoryID;
+    private StoryParam storyParam;
     public override void Init()
     {
         base.Init();
@@ -21,6 +22,7 @@ public class StoryPanel : BasePanel
     {
         curStoryID = id;
         StoryParam param = new StoryParam(id);
+        storyParam = param;
         if (!string.IsNullOrEmpty(param.dialogText))
         {
             dialogText.text = param.dialogText;
@@ -31,12 +33,17 @@ public class StoryPanel : BasePanel
 
         bg.sprite = AtlasManager.Instance.GetSprite(AtlasType.UIAtlas, param.bgName);
 
-        //if(param.dialogType == DialogType.SelectDialog)
-        //{
-        //    param.selectResultNextIDParams
-        //}
-        selectDialogObj.SetActive(param.dialogType == DialogType.SelectDialog);
+        if(param.dialogType == DialogType.SelectDialog)
+        {
+            for (int i = 0; i < param.selectResultNextIDParams.Count; i++)
+            {
+                optionsBtn[i].transform.Find("Text").GetComponent<Text>().text = string.Format("{0} - {1}", i + 1, param.selectResultNextIDParams[i].selectDialogText);
+                optionsBtn[i].gameObject.SetActive(true);
+            }
+        }
+        optionDialogObj.SetActive(param.dialogType == DialogType.SelectDialog);
         dialogObj.SetActive(param.dialogType != DialogType.SelectDialog);
+        clickArea.gameObject.SetActive(param.dialogType == DialogType.NormalDialog);
         if (IsInvoking("DelayCallEvent"))
         {
             CancelInvoke("DelayCallEvent");
@@ -63,8 +70,8 @@ public class StoryPanel : BasePanel
     public void ClickNext()
     {
         Debug.Log("next");
-        string strClick = StoryData.Instance.GetClickAction(curStoryID);
-        int nextId = StoryData.Instance.GetNextID(curStoryID);
+        string strClick = storyParam.clickEvent;
+        int nextId = storyParam.nextID;
         if (nextId != 0)
         {
             SetDataById(nextId);
@@ -81,5 +88,33 @@ public class StoryPanel : BasePanel
                 StoryEvent.Instance.gameObject.SendMessage(strClick);
             }
         }
+    }
+
+    public void ClickNext(int nextID)
+    {
+        Debug.Log("next");
+        string strClick = storyParam.clickEvent;
+        if (nextID != 0)
+        {
+            SetDataById(nextID);
+            if (!string.IsNullOrEmpty(strClick))
+            {
+                StoryEvent.Instance.gameObject.SendMessage(strClick);
+            }
+        }
+        else
+        {
+            gameObject.SetActive(false);
+            if (!string.IsNullOrEmpty(strClick))
+            {
+                StoryEvent.Instance.gameObject.SendMessage(strClick);
+            }
+        }
+    }
+
+
+    public void OptionsBtnClick(int selectID)
+    {
+        ClickNext(storyParam.selectResultNextIDParams[selectID - 1].nextID);
     }
 }

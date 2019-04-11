@@ -1,6 +1,6 @@
 Id,Name,BehaviorType,ChangeMoodValue,ChangeVigorValue,ChangeTopicValue,ChangeTalentValue,ChangeSongProficiencyValue
 ,,枚举类型,心情改变,精力改变,话题度改变,才艺点改变,公演歌曲熟练度改变
-1,上课,Go2Class,-10,-10,-10,-10,-10
-2,排练,Rehearsal,-10,-10,-10,-10,-10
-3,互动,Interact,10,10,10,10,10
-4,休息,Rest,20,20,20,20,20
+1,上课,Go2Class,-30,-25,+5,+5,+1
+2,排练,Rehearsal,-15,-40,+5,+10,+2
+3,互动,Interact,+20,+5,+0,+0,+0
+4,休息,Rest,+10,+50,+0,-1,-1

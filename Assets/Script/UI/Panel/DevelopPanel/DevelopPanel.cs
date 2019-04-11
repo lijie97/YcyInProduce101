@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using PathologicalGames;
 using TMPro;
@@ -58,12 +59,14 @@ public class DevelopPanel : BasePanel
         songProficiencyText.text = string.Format("{0}%", PlayerData.Instance.playerData.playerInfo.songProficiency);
     }
 
-    private void ShowFadeCavasAndSetValue(BehaviorType behaviorType)
+    private void ShowFadeCavasAndSetValue(BehaviorType behaviorType, Action fadeInAction = null,Action fadeOutAction = null)
     {
         canvasFade.tips.gameObject.SetActive(true);
         canvasFade.FadeIn(1f, () =>
         {
             canvasFade.tips.gameObject.SetActive(false);
+            if (fadeInAction != null)
+                fadeInAction();
             canvasFade.FadeOut(1f, () =>
             {
                 PropertyChangeParam[] changeParams = BehaviorData.Instance.GetPropertyChangeParams(behaviorType);
@@ -72,18 +75,10 @@ public class DevelopPanel : BasePanel
                 ShowLightBox(behaviorType);
                 DialogItem dialogItem = CreateDialogItem(behaviorType);
                 dialogItem.ShowFadeText();
+                if (fadeOutAction != null)
+                    fadeOutAction();
             });
             PlayerData.Instance.SetNextTimePoint();
-            switch (behaviorType)
-            {
-                case BehaviorType.Go2Class:
-                    //SceneManager.LoadScene("Stories");
-                    break;
-                case BehaviorType.Rehearsal:
-                    PlayerData.Instance.playerData.playerInfo.isMusicGame = true;
-                    SceneManager.LoadScene("MusicGame");
-                    break;
-            }
         });
     }
 
@@ -128,29 +123,24 @@ public class DevelopPanel : BasePanel
     #region Click
     public void Go2ClassBtnClick()
     {
-        Debug.Log("上课"); 
         canvasFade.SetTips("上课中...");
         ShowFadeCavasAndSetValue(BehaviorType.Go2Class);
-
     }
 
     public void RehearsalBtnClick()
     {
-        Debug.Log("排练");
         canvasFade.SetTips("排练中...");
         ShowFadeCavasAndSetValue(BehaviorType.Rehearsal);
     }
 
     public void InteractBtnClick()
     {
-        Debug.Log("互动");
         canvasFade.SetTips("互动中...");
         ShowFadeCavasAndSetValue(BehaviorType.Interact);
 
     }
     public void RestBtnClick()
     {
-        Debug.Log("休息");
         canvasFade.SetTips("休息中...");
         ShowFadeCavasAndSetValue(BehaviorType.Rest);
     }
