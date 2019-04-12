@@ -3,7 +3,7 @@
 --- !u!129 &1
 PlayerSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 15
+  serializedVersion: 14
   productGUID: 6784fec60ff6c6843b0a4fdb688241b0
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
@@ -240,7 +240,7 @@ PlayerSettings:
   tvOSManualSigningProvisioningProfileID: 
   appleEnableAutomaticSigning: 0
   clonedFromGUID: 00000000000000000000000000000000
-  AndroidTargetArchitectures: 5
+  AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: 
@@ -562,7 +562,8 @@ PlayerSettings:
   webGLUseEmbeddedResources: 0
   webGLUseWasm: 0
   webGLCompressionFormat: 1
-  scriptingDefineSymbols: {1: AMPLIFY_SHADER_EDITOR}
+  scriptingDefineSymbols:
+    1: AMPLIFY_SHADER_EDITOR
   platformArchitecture: {}
   scriptingBackend: {}
   incrementalIl2cppBuild: {}
@@ -645,13 +646,13 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
-    Collab: 1
+    Collab: 0
     UNet: 1
   facebookSdkVersion: 7.9.1
   apiCompatibilityLevel: 2
-  cloudProjectId: 7fd88bdf-4e34-44e4-91c1-147fe2fd7163
+  cloudProjectId: 3f0713f9-b309-4972-ae1c-115354a17d83
   projectName: YCY
-  organizationId: lijie97
+  organizationId: enchan
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

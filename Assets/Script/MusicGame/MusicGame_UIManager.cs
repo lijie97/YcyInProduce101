@@ -26,7 +26,9 @@ public class MusicGame_UIManager : MonoBehaviour {
     }
 
     //分值显示文本
-    public Text ScoreText;             //分值
+    public Text ScoreText;             //当前已经获得分值分值
+    [HideInInspector]
+    public float allScore;             //音乐总分   
     public Image hp;                   //血量
     public float _cutHpValue=0.05f;    //掉血量
     public Text HitTips;               //击打提示
@@ -35,11 +37,12 @@ public class MusicGame_UIManager : MonoBehaviour {
     public GameObject SettlementBG;    //游戏完成界面
     //public GameObject SetGrade;        //游戏难度设置界面
     //public Image gradeStatus;          //游戏难度等级显示UI；
-    //protected int curSongID;           //当前播放歌曲的ID；
+    //protected int curSongID;           //当前播放歌曲的ID；			
     public bool gameFinisher=true;       //游戏完成还是失败
     SongPlayer player;
     public Text pauseTip;                //暂停后再次播放时读秒
-    public GameObject pausePanel;
+    public Image scoreUI; 		        //分数进度条 
+    public GameObject pausePanel;      //暂停界面
     // Use this for initialization
     void Start()
     {
@@ -54,10 +57,21 @@ public class MusicGame_UIManager : MonoBehaviour {
         
     }
 
-
+    float scalTemp=0;
     private void OnGUI()
     {
         ScoreText.text = ((int)guitarGameplay.GetScore()).ToString();
+        scalTemp = (int)guitarGameplay.GetScore() / allScore;
+        if ((int)guitarGameplay.GetScore()==0)
+        {
+            scalTemp = 0;
+        }  
+		//利用cover
+		if(scalTemp <= 1)
+		{
+			scoreUI.fillAmount = 1-scalTemp;
+		}
+       // scoreUI.transform.localScale = new Vector3(scalTemp, 1,1);
         //HitTips.text = guitarGameplay.GetCombo().ToString();
     }
 
@@ -66,13 +80,20 @@ public class MusicGame_UIManager : MonoBehaviour {
     //创建歌曲列表
     public void creatSongList()
     {
+   
         setSongList.ClearSongList();
-        setSongList._addSongList("创造101");
+        if (setSongList.GetSongList.Count==0)
+        {
+            setSongList._addSongList("创造101");
+            setSongList._addSongList("庆祝");
+            setSongList._addSongList("全部都是你");
+        }
+      
         SongData[] playlist = GetComponent<GuitarGameplay>().GetPlaylist();
         for (int i = 0; i < playlist.Length; i++)
         {
             string buttonLabel = playlist[i].Band + " - " + playlist[i].Name;
-            GameObject playList = Instantiate(Resources.Load<GameObject>("UIPerfebs/songList"));           
+            GameObject playList = Instantiate(Resources.Load<GameObject>("UIPerfebs/songList"));
             if (!setSongList.GetSongList.Contains(playlist[i].Name))
             {
                 playList.SetActive(false);
@@ -82,11 +103,11 @@ public class MusicGame_UIManager : MonoBehaviour {
             playList.transform.GetChild(0).GetComponent<Text>().text = playlist[i].Name;
             playList.GetComponent<Button>().onClick.AddListener(delegate () {
                 int index = int.Parse(playList.name);
-                GetComponent<GuitarGameplay>().StartPlaying(index);              
-                SongList.SetActive(false);                
-                //gradeStatus.fillAmount = 0.33f;             
+                GetComponent<GuitarGameplay>().StartPlaying(index);
+                SongList.SetActive(false);                     
             });
         }
+
     }
 
 
@@ -246,16 +267,14 @@ public class MusicGame_UIManager : MonoBehaviour {
         if (player.IsPlaying())
         {
             player.Pause();
-            pausePanel.SetActive(true);
-          
+            pausePanel.SetActive(true);       
         }
         else
         {            
             pauseTip.gameObject.SetActive(true);
             pauseTip.GetComponent<Text>().text = timer.ToString();
             pausePanel.SetActive(false);
-            StartCoroutine(gameBeginPlay());
-            //player.Play();
+            StartCoroutine(gameBeginPlay());        
         }
     }
 
@@ -289,9 +308,6 @@ public class MusicGame_UIManager : MonoBehaviour {
     {
         volumeValue = slider.value;
     }
-
-
-
 
 
 

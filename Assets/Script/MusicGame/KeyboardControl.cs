@@ -56,7 +56,7 @@ public class KeyboardControl : MonoBehaviour
 	}
 
 	//Update is called once per frame
-	void Update()
+	void LateUpdate()
 	{
 		ProcessKeyInput();
 	}
@@ -157,12 +157,12 @@ public class KeyboardControl : MonoBehaviour
 
 				//Enable the light
 				StringButtons[ stringIndex ].transform.Find( "Light" ).GetComponent<Light>().enabled = true;
-
-				//Update key state
-				ButtonsPressed[ stringIndex ] = true;
-				ButtonsJustPressed[ stringIndex ] = true;
 			}
-		}
+
+            //Update key state
+            ButtonsPressed[stringIndex] = true;
+            ButtonsJustPressed[stringIndex] = true;
+        }
 		else
 		{
 			//Move paddle down

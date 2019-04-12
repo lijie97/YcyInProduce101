@@ -6,6 +6,7 @@ public class GuitarGameplay : MonoBehaviour
 {
 	public GameObject NotePrefab;
 	public SongData[] Playlist;
+	public AudioSource SoundEffect;
 
 	//References to important objects or components
 	protected GameObject GuitarNeckObject;
@@ -48,6 +49,7 @@ public class GuitarGameplay : MonoBehaviour
 		GuitarNeckObject = transform.Find( "Guitar Neck" ).gameObject;
 		Player = GetComponent<SongPlayer>();
 		NoteObjects = new List<GameObject>();
+		
 
 		HasHitNoteOnStringIndexThisFrame = new bool[keyNum];
 
@@ -110,7 +112,10 @@ public class GuitarGameplay : MonoBehaviour
 		CreateNoteObjects();
 
 		Player.Play();
-		StartCoroutine( "DisplayCountdown" );
+
+        mGame_uiManager.allScore = Player.Song.Notes.Count * 10;
+
+        StartCoroutine( "DisplayCountdown" );
 	}
 
 	public void StopPlaying()
@@ -211,7 +216,6 @@ public class GuitarGameplay : MonoBehaviour
 		}
 	}
 
-    //在此判定是否miss
 	protected void UpdateNotes()
 	{
 		for( int i = 0; i < NoteObjects.Count; ++i )
@@ -235,18 +239,17 @@ public class GuitarGameplay : MonoBehaviour
 				if( Player.Song.Notes[ i ].Length > 0f )
 				{
 					//Handle the trail
-					StartTrailHitRoutineForNote( i );                 
+					StartTrailHitRoutineForNote( i );
 				}
 				else
 				{
 					//No trail, just show the fire particles
-					ShowFireParticlesForNote( i );                  
-                }
+					ShowFireParticlesForNote( i );
+				}
 			}
-         
+
 			if( WasNoteMissed( i ) )
 			{
-                //Miss
 				HideNote( i );
 
 				Streak = 0;
@@ -261,7 +264,9 @@ public class GuitarGameplay : MonoBehaviour
 
 	protected void StartTrailHitRoutineForNote( int index )
 	{
-		GameObject trail = NoteObjects[ index ].transform.Find( "Trail" ).gameObject;      
+		GameObject trail = NoteObjects[ index ].transform.Find( "Trail" ).gameObject;
+        //**********************debg
+    
 		StartCoroutine( TrailHitRoutine( index, trail ) );
 	}
 
@@ -270,65 +275,82 @@ public class GuitarGameplay : MonoBehaviour
 		StartCoroutine( ShowFireParticles( Player.Song.Notes[ index ].StringIndex ) );
 	}
 
-
-    //******************************************  hit effect的效果在次函数内调用即可    *****************************************************************************************************
-    protected IEnumerator ShowFireParticles( int stringIndex )
+    //hit
+	protected IEnumerator ShowFireParticles( int stringIndex )
 	{
-        //在这里开启调用粒子特效 -***********************************
-        KeyboardControl.GetStringButton( stringIndex ).transform.Find( "Flame" ).GetComponent<ParticleEmitter>().ClearParticles();
-		KeyboardControl.GetStringButton( stringIndex ).transform.Find( "Flame" ).GetComponent<ParticleEmitter>().emit = true;   
+        //KeyboardControl.GetStringButton( stringIndex ).transform.Find( "Flame" ).GetComponent<ParticleEmitter>().ClearParticles();
+        //KeyboardControl.GetStringButton( stringIndex ).transform.Find( "Flame" ).GetComponent<ParticleEmitter>().emit = true;
+        //Debug.Log(KeyboardControl.GetStringButton(stringIndex).transform.Find("hit").transform.name);
+       
+        KeyboardControl.GetStringButton(stringIndex).transform.Find("hit").GetComponent<ParticleSystem>().Play();
+		SoundEffect.Play();
+		
+		
+		
+        //KeyboardControl.GetStringButton(stringIndex).transform.Find("Flame").GetComponent<ParticleEmitter>().emit = true;
+        //Wait for one frame and disable the emitter again, 
+        //it is set to one shot so everything is emitted on the first frame
         yield return null;
-
-
-        //在此关闭粒子特效--***************************************
-        KeyboardControl.GetStringButton( stringIndex ).transform.Find( "Flame" ).GetComponent<ParticleEmitter>().emit = false; 
+        KeyboardControl.GetStringButton(stringIndex).transform.Find("hit").GetComponent<ParticleSystem>().Stop();
+        //KeyboardControl.GetStringButton( stringIndex ).transform.Find( "Flame" ).GetComponent<ParticleEmitter>().emit = false;
 	}
 
 
-    //******************************************    long note effect的效果在此函数内调用   *************************************************************************************************
-    protected IEnumerator TrailHitRoutine( int noteIndex, GameObject trail )
+    //long hit
+	protected IEnumerator TrailHitRoutine( int noteIndex, GameObject trail )
 	{
-		Note note = Player.Song.Notes[ noteIndex ];	
-		trail.GetComponent<Renderer>().material.color = Colors[ note.StringIndex ];
-      
-        //在这里开启调用粒子特效  --********************************************
-        KeyboardControl.GetStringButton( note.StringIndex ).transform.Find( "Sparks" ).GetComponent<ParticleEmitter>().emit = true;
-		KeyboardControl.GetStringButton( note.StringIndex ).transform.Find( "Sparks" ).GetComponent<ParticleEmitter>().GetComponent<Renderer>().enabled = true;     
-        
+		Note note = Player.Song.Notes[ noteIndex ];
 
+		//Update the color of the trail
+		//Initially it is darkened and now the full bright color is applied
+		trail.GetComponent<Renderer>().material.color = Colors[ note.StringIndex ];
+
+        //Start the spark particles
+        //KeyboardControl.GetStringButton( note.StringIndex ).transform.Find( "Sparks" ).GetComponent<ParticleEmitter>().emit = true;
+        //KeyboardControl.GetStringButton( note.StringIndex ).transform.Find( "Sparks" ).GetComponent<ParticleEmitter>().GetComponent<Renderer>().enabled = true;
+        KeyboardControl.GetStringButton(note.StringIndex).transform.Find("long note effect").GetComponent<ParticleSystem>().Play();
+		KeyboardControl.GetStringButton(note.StringIndex).transform.Find("hit").GetComponent<ParticleSystem>().Play();
+		//add sound effect
+		SoundEffect.Play();
+		
+		//add aditional hit effect
+		//KeyboardControl.GetStringButton(note.stringIndex).transform.Find("hit").GetComponent<ParticleSystem>().Play();
 
         Vector3 trailScale = trail.transform.localScale;
 		Vector3 trailPosition = trail.transform.localPosition;
+
 		//Do this as long as the button for the specific string is pressed or until the trail reaches its end
 		while( KeyboardControl.IsButtonPressed( note.StringIndex )
 			&& Player.GetCurrentBeat() + 1 <= note.Time + note.Length )
 		{
 			//Calculate how far we have progressed in this trail
 			float progress = Mathf.Clamp01( ( 1 + Player.GetCurrentBeat() - note.Time ) / note.Length );
+
 			//Shrink the trail and adjust its position
 			//Since the pivot of the trail is in the center, meaning it will shrink at the start and at the end,
 			//we have to reposition the trail each frame so it appears as if its shrinking from the beginning and the
 			//end remains fixed
 			trail.transform.localScale = new Vector3( trailScale.x, trailScale.y, trailScale.z * ( 1 - progress ) );
 			trail.transform.localPosition = new Vector3( trailPosition.x, trailPosition.y + trailPosition.y * progress, trailPosition.z );
+
 			//Its possible to hit the note before its beat is reached, because the hit zone is wide to make it easier to hit the notes
 			//Increate the score only after the notes real hit position is reached
 			if( progress > 0 )
 			{
-				Score += 10 * Multiplier * Time.deltaTime;
-			}            
+				Score += 10 * Multiplier * Time.deltaTime;             
+            }
+
 			yield return null;
 		}
+
 		//Hide the trail
 		trail.GetComponent<Renderer>().enabled = false;
 
-
-        //在此关闭粒子特效  --**********************************************
-        KeyboardControl.GetStringButton( note.StringIndex ).transform.Find( "Sparks" ).GetComponent<ParticleEmitter>().emit = false;
-		KeyboardControl.GetStringButton( note.StringIndex ).transform.Find( "Sparks" ).GetComponent<ParticleEmitter>().GetComponent<Renderer>().enabled = false;
-        //Debug.Log("shortPress");
-    }
-
+        //Disable the particles
+        KeyboardControl.GetStringButton(note.StringIndex).transform.Find("long note effect").GetComponent<ParticleSystem>().Stop();
+        //KeyboardControl.GetStringButton( note.StringIndex ).transform.Find( "Sparks" ).GetComponent<ParticleEmitter>().emit = false;
+		//KeyboardControl.GetStringButton( note.StringIndex ).transform.Find( "Sparks" ).GetComponent<ParticleEmitter>().GetComponent<Renderer>().enabled = false;
+	}
 
 
 
@@ -475,35 +497,40 @@ public class GuitarGameplay : MonoBehaviour
             {
                 StartCoroutine(DisplayText("good", 1f, 0f));
                 combo = 0;
-                good += 1;             
+                good += 1;
+                Debug.Log("good");
                 return true;
             }
             else if (note.transform.position.z > 1.72f && note.transform.position.z < 2f)  //great
-            {            
+            {
+                Debug.Log("great");
                 combo += 1;
                 great += 1;
-                StartCoroutine(mGame_uiManager.DisplayText(string.Format("+ {0}", combo)));
+                StartCoroutine(mGame_uiManager.DisplayText(string.Format("COMBO {0}", combo)));
                 StartCoroutine(DisplayText("great", 1f, 0f));
                 return true;
             }
             else if (note.transform.position.z > 1.62f && note.transform.position.z < 1.72f)  //perfect
-            {              
+            {
+                Debug.Log("perfect");
                 combo += 1;
                 perfect += 1;
-                StartCoroutine(mGame_uiManager.DisplayText(string.Format("+ {0}", combo)));
+                StartCoroutine(mGame_uiManager.DisplayText(string.Format("COMBO {0}", combo)));
                 StartCoroutine(DisplayText("perfect", 1f, 0f));
                 return true;
             }
             else if (note.transform.position.z > 1.45f && note.transform.position.z < 1.62f)  //great
-            {             
+            {
+                Debug.Log("great");
                 combo += 1;
                 great += 1;
-                StartCoroutine(mGame_uiManager.DisplayText(string.Format("+ {0}", combo)));
+                StartCoroutine(mGame_uiManager.DisplayText(string.Format("COMBO {0}", combo)));
                 StartCoroutine(DisplayText("great", 1f, 0f));
                 return true;
             }
             else if (note.transform.position.z > 0.9f && note.transform.position.z < 1.45f)  //good
-            {               
+            {
+                Debug.Log("good");
                 combo = 0;
                 good += 1;
                 StartCoroutine(DisplayText("good", 1f, 0f));
@@ -610,7 +637,7 @@ public class GuitarGameplay : MonoBehaviour
 	}
 
 
-    //
+    // 长音符拖尾的制作
 	protected GameObject CreateTrailObject( GameObject noteObject, Note note )
 	{
 		if( note.Length == 0 )
@@ -625,10 +652,10 @@ public class GuitarGameplay : MonoBehaviour
 		//The guitar neck is 20 units long
 		//The plane primitive is 10 units long
 		//1/6th of the neck is one beat, therefore 1/3rd of the initial plane length
-		float scaleZ = 0.33f * note.Length;
+		float scaleZ = (0.33f * note.Length);
 
 		//Scale the plane
-		trail.transform.localScale = new Vector3( 0.03f, 1f, scaleZ );
+		trail.transform.localScale = new Vector3( 0.08f, 1f, scaleZ );
 
 		//Add the trail as child of the note
 		trail.transform.parent = noteObject.transform;
@@ -636,10 +663,13 @@ public class GuitarGameplay : MonoBehaviour
 		//position it so that the trail is behind the note
 		trail.transform.localPosition = new Vector3( 0f, -10f * scaleZ / 2f, 0.01f );
 
-		//Setup colors and shader
-		trail.GetComponent<Renderer>().material.color = Colors[ note.StringIndex ] * 0.2f;
-		trail.GetComponent<Renderer>().material.shader = Shader.Find( "Self-Illumin/Diffuse" );
-		trail.GetComponent<Renderer>().enabled = false;
+        //Setup colors and shader
+        //trail.GetComponent<Renderer>().material.color = Colors[ note.StringIndex ] * 0.2f;
+        //trail.GetComponent<Renderer>().material.shader = Shader.Find( "Self-Illumin/Diffuse" );
+        Material tempM = Resources.Load<Material>("MusicGame/Materials/trail_Materials");
+        trail.GetComponent<MeshRenderer>().material = tempM;
+        trail.GetComponent<Renderer>().material.shader = Shader.Find("Particles/Additive");
+        trail.GetComponent<Renderer>().enabled = false;
 		trail.name = "Trail";
 		return trail;
 	}

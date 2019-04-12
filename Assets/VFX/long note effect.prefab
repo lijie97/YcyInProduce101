@@ -34,9 +34,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1008301821880106}
-  m_LocalRotation: {x: 0, y: 0, z: 0.5, w: 0.8660254}
+  m_LocalRotation: {x: -0, y: -0, z: 0.5, w: 0.8660254}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5048311, y: 0.50483114, z: 0.50483114}
+  m_LocalScale: {x: 0.50482845, y: 0.50482845, z: 0.5048285}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -49,11 +49,11 @@ ParticleSystem:
   m_GameObject: {fileID: 1008301821880106}
   serializedVersion: 5
   lengthInSec: 1
-  simulationSpeed: 1
+  simulationSpeed: 2
   stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -101,15 +101,15 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 899965207
+  randomSeed: 1229107083
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
-      minScalar: 0.6
+      scalar: 0.4
+      minScalar: 0.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -149,8 +149,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 10
-      minScalar: 30
+      scalar: 20
+      minScalar: 40
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -661,7 +661,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15
+      scalar: 40
       minScalar: 10
       maxCurve:
         serializedVersion: 2
